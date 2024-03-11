@@ -40,6 +40,13 @@ let allContacts = [
     },
     {
         'id': '',
+        'name': 'Anja Mayer',
+        'inicials': 'AM',
+        'emsil': 'antom@gmail.com',
+        'phone': +491111111111,
+    },
+    {
+        'id': '',
         'name': 'Jan Mayer',
         'inicials': 'JM',
         'emsil': 'antom@gmail.com',
@@ -338,6 +345,7 @@ async function deleteUser(email) {
  * @async
  */
 async function saveContacts() {
+    sortContacts();
     await setItem('contacts', JSON.stringify(allContacts));
 }
 
