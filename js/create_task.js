@@ -17,7 +17,8 @@ function taskTemplate(title, description, dueDate, category) {
     console.log('allTasks is:', allTasks);
 }
 
-function clearAddTaskInputs() {
+function clearAddTaskInputs(event) {
+    event.preventDefault();
     let form = document.getElementById('add_task_form');
     form.reset();
     selectedPrio = undefined;

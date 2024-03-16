@@ -1,19 +1,9 @@
 let letters = [];
-
+let lastActiveContactID;
 async function initContacts() {
     await loadContacts();
     generateSideBar();
     sortsContactsByLetter();
-}
-
-function contactTemplate() {
-    let contact = {
-        'id': '',
-        'name': name,
-        'inicials': inicials,
-        'email': email,
-        'phone': +phoneNumber,
-    }
 }
 
 function sortsContactsByLetter() {
@@ -22,7 +12,6 @@ function sortsContactsByLetter() {
     letters = [];
     allContacts.forEach(contact => {
         let firstLetter = contact.name.charAt(0).toUpperCase();
-        console.log(firstLetter);
         let letterAvailable = letters.indexOf(firstLetter)
         if (letterAvailable == -1) {
             letters.push(firstLetter);
@@ -45,11 +34,31 @@ function renderLetter(firstLetter) {
 function renderContact(firstLetter, contact) {
     let contactLetter = document.getElementById(`${firstLetter}`);
     contactLetter.innerHTML += /*html*/`
-    <div id="selectable_contact" class="contact-assign-to" onclick="openContact(${contact.id})">
+    <div id="selectable_contact${contact.id}" class="contact" onclick="openContact(${contact.id})">
         <span class="contact-inicials">${contact.inicials}</span>
         <div class="contact-details">
             <span class="contact-name fontSize-20-400">${contact.name}</span>
-            <a href="#" class="fontSize-16-400">${contact.emsil}</a>
+            <a href="#" class="fontSize-16-400">${contact.email}</a>
         </div>
     </div>`
 }
+
+async function deleteContact(id) {
+    allContacts.splice(id, 1);
+    await saveContacts();
+    await loadContacts();
+    sortsContactsByLetter();
+    let openContact = document.getElementById('open_contact');
+    openContact.innerHTML = '';
+}
+
+
+
+
+
+
+
+
+
+
+

@@ -10,11 +10,14 @@
     <link rel="stylesheet" href="../font/fonts.css">
     <link rel="stylesheet" href="../style/generalclasses.css">
     <link rel="stylesheet" href="../style/contacts.css">
-    <!-- <link rel="stylesheet" href="../style/add_tasks.css"> -->
+    <link rel="stylesheet" href="../style/add_tasks.css">
 
     <script src="../js/storage.js"></script>
     <script src="../js/menuTemplate.js"></script>
     <script src="../js/contacts.js"></script>
+    <script src="../js/open_contact.js"></script>
+    <script src="../js/add_contact.js"></script>
+    
 
     <title>Contacts</title>
 </head>
@@ -24,16 +27,45 @@
 
     <div class="show-contacts">
         <div id="all_contacts" class="all-contacts">
-            <div class="add-contacts">
-                <button class="fontSize-21-700">Add new contact <img src="../assets/img/person_add.svg" alt=""></button>
+            <div class="add-contacts" onclick="openAddContact()">
+                <button class="fontSize-21-700">Add new contact <img src="../assets/img/person_add.svg"></button>
             </div>
             <div id="sorted_contacts" class="sorted-contact"></div>
         </div>
-        <div class="contact">
+        <div class="show-contact">
             <div class="header">
-                <h1>Contacts</h1> <div class="line"></div> <span class="fontSize-27-400">Better with a team</span>
+                <h1>Contacts</h1>
+                <div class="line"></div>
+                <span class="fontSize-27-400">Better with a team</span>
+                <div class="line-responsive"></div>
             </div>
+            <div id="open_contact"></div>
         </div>
+    </div>
+
+
+    <div id="show_contact_responsive" class="show-contact-responsive d-none">
+        <div class="header-responsive">
+            <div class="header">
+                <h1>Contacts</h1>
+                <div class="line"></div>
+                <span class="fontSize-27-400">Better with a team</span>
+                <div class="line-responsive"></div>
+            </div>
+            <img src="../assets/img/arrow-left-line.svg" onclick="closeOpenContact()">
+        </div>
+        <div id="open_contact_responsive"></div>
+    </div>
+
+
+
+    <div class="add-contacts-responsive" onclick="openAddContact()">
+        <button class="fontSize-21-700"><img src="../assets/img/person_add.svg"></button>
+    </div>
+
+    <div id="add_contact" class="add-contact-overlay d-none">
+        <div class="add-contact-bg"></div>
+        <div id="add_contact_inputs" class="add-contact"></div>
     </div>
 </body>
 

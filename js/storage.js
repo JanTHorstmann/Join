@@ -7,63 +7,63 @@ let allContacts = [
         'id': '',
         'name': 'Sabine Mayer',
         'inicials': 'SM',
-        'emsil': 'antom@gmail.com',
+        'email': 'antom@gmail.com',
         'phone': +491111111111,
     },
     {
         'id': '',
         'name': 'Manuel Mayer',
         'inicials': 'MM',
-        'emsil': 'antom@gmail.com',
+        'email': 'antom@gmail.com',
         'phone': +491111111111,
     },
     {
         'id': '',
         'name': 'Berta Mayer',
         'inicials': 'BM',
-        'emsil': 'antom@gmail.com',
+        'email': 'antom@gmail.com',
         'phone': +491111111111,
     },
     {
         'id': '',
         'name': 'Derta Mayer',
         'inicials': 'DM',
-        'emsil': 'antom@gmail.com',
+        'email': 'antom@gmail.com',
         'phone': +491111111111,
     },
     {
         'id': '',
         'name': 'Anton Mayer',
         'inicials': 'AM',
-        'emsil': 'antom@gmail.com',
+        'email': 'antom@gmail.com',
         'phone': +491111111111,
     },
     {
         'id': '',
         'name': 'Anja Mayer',
         'inicials': 'AM',
-        'emsil': 'antom@gmail.com',
+        'email': 'antom@gmail.com',
         'phone': +491111111111,
     },
     {
         'id': '',
         'name': 'Jan Mayer',
         'inicials': 'JM',
-        'emsil': 'antom@gmail.com',
+        'email': 'antom@gmail.com',
         'phone': +491111111111,
     },
     {
         'id': '',
         'name': 'Nico Mayer',
         'inicials': 'NM',
-        'emsil': 'antom@gmail.com',
+        'email': 'antom@gmail.com',
         'phone': +491111111111,
     },
     {
         'id': '',
         'name': 'Christian Mayer',
         'inicials': 'CM',
-        'emsil': 'antom@gmail.com',
+        'email': 'antom@gmail.com',
         'phone': +491111111111,
     },
 ]
@@ -434,7 +434,7 @@ function sortContacts() {
         }
     });
     generateIDContacts(allContacts);
-    saveContacts();
+    // saveContacts();
 }
 
 /**

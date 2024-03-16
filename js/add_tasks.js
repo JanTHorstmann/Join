@@ -1,10 +1,9 @@
 async function initAddTask() {
-    sortContacts();
+    await loadContacts();
     await loadTasks();
     generateSideBar();
     renderAddTaskContent();
     renderAssignedTo();
-    // setMinDate()
 }
 
 let subTasks = [];

@@ -16,7 +16,7 @@ function renderAddTaskContent() {
                     <label class="required-text">This field is required</label>
                 </div>    
                 <div class="clear-create-btn">
-                    <button class="clear-btn fontSize-20-400" onclick="clearAddTaskInputs()">Clear x</button>
+                    <button class="clear-btn fontSize-20-400" onclick="clearAddTaskInputs(event)">Clear x</button>
                     <button type="submit" class="create-btn fontSize-21-700">Create Task <img src="../assets/img/check_icon_FFFFFF.svg" alt=""></button>
                 </div>
             </div>
