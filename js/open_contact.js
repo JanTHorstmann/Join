@@ -3,7 +3,7 @@ function openContact(id) {
     let openContactResponsive = document.getElementById('open_contact_responsive');
     hoverActiveContact(id);
     let windowSize = window.innerWidth;
-    console.log(windowSize);
+    // console.log(windowSize);
     let contact = allContacts[id];
     let phoneNumber = splitPhoneNumber(contact.phone);
     if (windowSize > 730) {
@@ -53,7 +53,7 @@ function renderOpenContact(contact, phoneNumber) {
                 <div class="flex-column-gap8">
                     <span class="contact-name-open-contact">${contact.name}</span>
                     <div class="edit-delete-open-contact">
-                        <div class="edit-delete-contact">
+                        <div class="edit-delete-contact" onclick="editContact(${contact.id})">
                             <img src="../assets/img/edit_subtask.svg" alt="">
                             <span>Edit</span>
                         </div>

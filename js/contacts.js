@@ -51,14 +51,3 @@ async function deleteContact(id) {
     let openContact = document.getElementById('open_contact');
     openContact.innerHTML = '';
 }
-
-
-
-
-
-
-
-
-
-
-

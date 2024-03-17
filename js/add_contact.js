@@ -68,10 +68,23 @@ async function createContact() {
     let contact = contactTemplate(name.value, inicials, mail.value, phone.value);
     allContacts.push(contact);
     saveContacts();
-    console.log(contact);
-    closeAddContact();
+    // console.log(contact);
     await loadContacts();
     sortsContactsByLetter();
+    showAddContactBanner();
+}
+
+function showAddContactBanner() {
+    let contactBanner = document.getElementById('contact_created_banner');
+    contactBanner.classList.remove('d-none');
+    setTimeout(() => {
+        contactBanner.classList.add('bottom-50');
+    }, 10);
+    setTimeout(() => {
+        contactBanner.classList.remove('bottom-50');
+        contactBanner.classList.add('d-none');
+        closeAddContact();
+    }, 800);
 }
 
 function clearAddContactInputs(event) {

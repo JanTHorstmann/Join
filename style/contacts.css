@@ -17,7 +17,7 @@ a {
 .all-contacts {
     padding-left: 260px;
     padding-right: 50px;
-    height: calc(100% - 75px);
+    height: 100%;
     /* width: 350px; */
     min-width: 350px;
     max-width: 350px;
@@ -162,7 +162,8 @@ a {
     border-radius: 100%;
     background-color: #FF7A00;
     min-width: 120px;
-    min-height: 120px;
+    height: 120px;
+    
     display: flex;
     justify-content: center;
     align-items: center;
@@ -308,6 +309,7 @@ form {
 .add-contact-inputs {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     gap: 64px;
 }
 
@@ -389,10 +391,34 @@ form {
     color: #FFFFFF;
 }
 
+.contact-created-banner {
+    z-index: 99;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    transition: bottom 500ms ease-in-out;
+}
+
+.contact-created-banner span {
+    background-color: #2A3647;
+    color: #FFFFFF;
+    padding: 24px;
+    border-radius: 20px;
+    border: none;
+    
+}
+
+.bottom-50 {
+    bottom: 50%;
+}
+
 @media (max-width: 1150px) {
     .all-contacts {
         padding-left: 15px;
         padding-right: 15px;
+        height: calc(100% - 75px);
     }
 }
 
@@ -552,6 +578,10 @@ form {
 }
 
 @media (max-width: 400px) {
+    .contact {
+        padding: 0;
+    }
+
     .clear-create-btn {
         justify-content: center;
     }
@@ -566,5 +596,10 @@ form {
 
     .add-contacts-responsive button {
         display: flex;
+    }
+
+    .all-contacts {
+        padding-left: 15px;
+        padding-right: 15px;
     }
 }
