@@ -14,7 +14,9 @@
 
     <script src="../js/storage.js"></script>
     <script src="../js/menuTemplate.js"></script>
+    <script src="../js/board_responsive.js"></script>
     <script src="../js/board.js"></script>
+    <script src="../js/search_task.js"></script>
     <script src="../js/render_board_task.js"></script>
     <script src="../js/open_board_tasks.js"></script>
     <script src="../js/add_tasks.js"></script>
@@ -34,60 +36,37 @@
 
             <div class="searchfield">
                 <div class="search-input">
-                    <input class="fontSize-20-400" type="text" placeholder="Find Task">
+                    <input id="search_input" class="fontSize-20-400" type="text" placeholder="Find Task" oninput="searchTask()">
                     <img src="../assets/img/search.svg" alt="">
                 </div>
                 <button class="fontSize-21-700" onclick="openAddTask()">Add task +</button>
             </div>
+            <select class="fontSize-20-400" id="section_selection" onchange="changeSection()">
+                <option value="to_do">To do</option>
+                <option value="progress">In progress</option>
+                <option value="feedback">Await feedback</option>
+                <option value="done">Done</option>
+            </select>
         </div>
         <div class="task-field">
-            <div class="task-section">
-                <div class="task-section-header">
-                    <span class="fontSize-21-700 color-42526E">To do</span>
-                    <img class="add-task-btn" src="../assets/img/add_subtask.svg" onclick="openAddTask()">
-                </div>
-                <div class="task-area">
-                    <div id="to_do_not_found" class="no-task-found">
-                        <span class="fontSize-16-400">No tasks To do</span>
-                    </div>
-                    <div id="to_do_tasks" ondrop="dropTask('to_do')" ondragover="allowDrop(event)"></div>
-                </div>
-            </div>
+            <div id="to_do_container" class="task-section"></div>
+            <div id="progress_container" class="task-section"></div>
+            <div id="feedback_container" class="task-section"></div>
+            <div id="done_container" class="task-section"></div>
 
-            <div class="task-section">
-                <div class="task-section-header">
-                    <span class="fontSize-21-700 color-42526E">In progress</span>
-                    <img class="add-task-btn" src="../assets/img/add_subtask.svg" onclick="openAddTask('progress')">
-                </div>
-                <div class="task-area">
-                    <div id="progress_not_found" class="no-task-found">
-                        <span class="fontSize-16-400">No tasks In progress</span>
-                    </div>
-                    <div id="progress_tasks" ondrop="dropTask('progress')" ondragover="allowDrop(event)"></div>
-                </div>
-            </div>
+<!-- responsive view -->
 
-            <div class="task-section">
-                <div class="task-section-header">
-                    <span class="fontSize-21-700 color-42526E">Await feedback</span>
-                    <img class="add-task-btn" src="../assets/img/add_subtask.svg" onclick="openAddTask('feedback')">
-                </div>
-                <div class="task-area">
-                    <div id="feedback_not_found" class="no-task-found">
-                        <span class="fontSize-16-400">No tasks Await feedback</span>
-                    </div>
-                    <div id="feedback_tasks" ondrop="dropTask('feedback')" ondragover="allowDrop(event)"></div>
-                </div>
-            </div>
-
-            <div class="task-section">
-                <div class="task-section-header">
-                    <span class="fontSize-21-700 color-42526E">Done</span>
-                </div>
-                <div id="done_tasks" class="task-area" ondrop="dropTask('done')" ondragover="allowDrop(event)"></div>
-            </div>
+            <div id="to_do_container_responsive" class="task-section-responsive"></div>
+            <div id="progress_container_responsive" class="task-section-responsive d-none"></div>
+            <div id="feedback_container_responsive" class="task-section-responsive d-none"></div>
+            <div id="done_container_responsive" class="task-section-responsive d-none"></div>
         </div>
     </div>
+
+
+
+
+
 
     <div id="open_task" class="d-none"></div>
     <div id="close_assigned" class="close-assigned d-none" onclick="openDropDown()"></div>

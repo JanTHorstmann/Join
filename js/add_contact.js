@@ -49,7 +49,7 @@ function renderAddContact() {
                     <div class="inputfield-add-contact">
                         <input required id="contact_name" class="inputs-add-contact fontSize-20-400" type="text" placeholder="Name">
                         <input required id="contact_email" class="inputs-add-contact fontSize-20-400" type="email" placeholder="Email">
-                        <input required id="contact_phone" class="inputs-add-contact fontSize-20-400" type="tel" placeholder="Phone" pattern="[0-9]{12,}" title="Bitte gib mindestens 8 Ziffern ein.">
+                        <input required id="contact_phone" class="inputs-add-contact fontSize-20-400" type="tel" placeholder="Phone" pattern="[0-9]{8,}" title="Bitte gib mindestens 8 Ziffern ein.">
                     </div>
                 </div>
                     <div class="clear-create-btn">

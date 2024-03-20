@@ -29,7 +29,7 @@ function clearAddTaskInputs(event) {
     selectedContacts(choosenContacts);
 }
 
-async function createTask() {
+async function createTask(event) {
     let title = document.getElementById('title_input');
     let description = document.getElementById('description_input');
     let dueDate = document.getElementById('due_date_input');
@@ -37,7 +37,7 @@ async function createTask() {
     if (selectedPrio) {
         console.log('task created');
         taskTemplate(title.value, description.value, dueDate.value, category.value);
-        clearAddTaskInputs();
+        clearAddTaskInputs(event);
         taskSuccessfullyCreated();
         await saveTasks();
     } else {

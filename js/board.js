@@ -2,43 +2,65 @@ async function initBoard() {
     await loadTasks();
     await loadContacts();
     generateSideBar();
+    initResponsiveBoard();
+    fillTaskContent();
     sortTasksToSections();
 }
 
+function fillTaskContent() {
+    let toDoContainer = document.getElementById('to_do_container');
+    let progressContainer = document.getElementById('progress_container');
+    let feedbackContainer = document.getElementById('feedback_container');
+    let doneContainer = document.getElementById('done_container');
+
+    toDoContainer.innerHTML = renderToDoContainer();
+    progressContainer.innerHTML = renderProgressContainer();
+    feedbackContainer.innerHTML = renderFeedbackContainer();
+    doneContainer.innerHTML = renderDoneContainer();
+}
+
+
+
 function sortTasksToSections() {
-    clearTaskField();
+    clearTaskField('to_do', 'progress', 'feedback', 'done', '');
+    clearTaskField('to_do', 'progress', 'feedback', 'done', '_responsive');
     allTasks.forEach(task => {
         if (task.inWichSection == 'to_do') {
             isTaskInArea(task.inWichSection);
             sortAllTasks(task);
+            sortAllTasksResponsive(task);
         }
         if (task.inWichSection == 'progress') {
             isTaskInArea(task.inWichSection);
             sortAllTasks(task);
+            sortAllTasksResponsive(task);
         }
         if (task.inWichSection == 'feedback') {
             isTaskInArea(task.inWichSection);
             sortAllTasks(task);
+            sortAllTasksResponsive(task);
         }
         if (task.inWichSection == 'done') {
             sortAllTasks(task);
+            sortAllTasksResponsive(task);
         }
     });
 }
 
 function isTaskInArea(section) {
     document.getElementById(`${section}_not_found`).classList.add('d-none');
+    document.getElementById(`${section}_not_found_responsive`).classList.add('d-none');
 }
 
-function clearTaskField() {
-    document.getElementById('to_do_tasks').innerHTML = '';
-    document.getElementById('progress_tasks').innerHTML = '';
-    document.getElementById('feedback_tasks').innerHTML = '';
-    document.getElementById('done_tasks').innerHTML = '';
+function clearTaskField(to_do, progress, feedback, done, _responsive) {
+    document.getElementById(`${to_do}_tasks${_responsive}`).innerHTML = '';
+    document.getElementById(`${progress}_tasks${_responsive}`).innerHTML = '';
+    document.getElementById(`${feedback}_tasks${_responsive}`).innerHTML = '';
+    document.getElementById(`${done}_tasks${_responsive}`).innerHTML = '';
 
-    document.getElementById('to_do_not_found').classList.remove('d-none');
-    document.getElementById('progress_not_found').classList.remove('d-none');
-    document.getElementById('feedback_not_found').classList.remove('d-none');
+    document.getElementById(`to_do_not_found${_responsive}`).classList.remove('d-none');
+    document.getElementById(`progress_not_found${_responsive}`).classList.remove('d-none');
+    document.getElementById(`feedback_not_found${_responsive}`).classList.remove('d-none');
 }
 
 function sortAllTasks(task) {

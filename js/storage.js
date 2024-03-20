@@ -2,179 +2,9 @@ const STORAGE_TOKEN = 'PXLR74EGYE6KQF2FNA009UTFBN1CZP6D1UHJKUZW'
 const STORAGE_URL = 'https://remote-storage.developerakademie.org/item'
 
 let lokalUsers = [];
-let allContacts = [
-    {
-        'id': '',
-        'name': 'Sabine Mayer',
-        'inicials': 'SM',
-        'email': 'antom@gmail.com',
-        'phone': +491111111111,
-    },
-    {
-        'id': '',
-        'name': 'Manuel Mayer',
-        'inicials': 'MM',
-        'email': 'antom@gmail.com',
-        'phone': +491111111111,
-    },
-    {
-        'id': '',
-        'name': 'Berta Mayer',
-        'inicials': 'BM',
-        'email': 'antom@gmail.com',
-        'phone': +491111111111,
-    },
-    {
-        'id': '',
-        'name': 'Derta Mayer',
-        'inicials': 'DM',
-        'email': 'antom@gmail.com',
-        'phone': +491111111111,
-    },
-    {
-        'id': '',
-        'name': 'Anton Mayer',
-        'inicials': 'AM',
-        'email': 'antom@gmail.com',
-        'phone': +491111111111,
-    },
-    {
-        'id': '',
-        'name': 'Anja Mayer',
-        'inicials': 'AM',
-        'email': 'antom@gmail.com',
-        'phone': +491111111111,
-    },
-    {
-        'id': '',
-        'name': 'Jan Mayer',
-        'inicials': 'JM',
-        'email': 'antom@gmail.com',
-        'phone': +491111111111,
-    },
-    {
-        'id': '',
-        'name': 'Nico Mayer',
-        'inicials': 'NM',
-        'email': 'antom@gmail.com',
-        'phone': +491111111111,
-    },
-    {
-        'id': '',
-        'name': 'Christian Mayer',
-        'inicials': 'CM',
-        'email': 'antom@gmail.com',
-        'phone': +491111111111,
-    },
-]
+let allContacts = [];
 let sortedContacts = [];
-let allTasks = [
-    {
-        'id': '0',
-        'title': 'title',
-        'description': 'description',
-        'assigned': [
-            {
-                'id': '0',
-                'name': 'Nico Mayer',
-                'inicials': 'NM',
-                'emsil': 'antom@gmail.com',
-                'phone': +491111111111,
-            },
-            {
-                'id': '1',
-                'name': 'Christian Mayer',
-                'inicials': 'CM',
-                'emsil': 'antom@gmail.com',
-                'phone': +491111111111,
-            },
-        ],
-        'dueDate': '2024-02-28',
-        'priority': 'Urgent',
-        'category': 'category',
-        'subtasks': [
-            {
-                'text': 'subTasks1',
-                'done': false,
-            },
-            {
-                'text': 'subTasks2',
-                'done': true,
-            },
-        ],
-        'inWichSection': 'to_do',
-    },
-    {
-        'id': '1',
-        'title': 'title',
-        'description': 'description',
-        'assigned': [
-            {
-                'id': '0',
-                'name': 'Nico Mayer',
-                'inicials': 'NM',
-                'emsil': 'antom@gmail.com',
-                'phone': +491111111111,
-            },
-            {
-                'id': '1',
-                'name': 'Christian Mayer',
-                'inicials': 'CM',
-                'emsil': 'antom@gmail.com',
-                'phone': +491111111111,
-            },
-        ],
-        'dueDate': '2024-02-28',
-        'priority': 'medium',
-        'category': 'category',
-        'subtasks': [
-            {
-                'text': 'subTasks1',
-                'done': false,
-            },
-            {
-                'text': 'subTasks2',
-                'done': true,
-            },
-        ],
-        'inWichSection': 'progress',
-    },
-    {
-        'id': '2',
-        'title': 'title',
-        'description': 'description',
-        'assigned': [
-            {
-                'id': '0',
-                'name': 'Nico Mayer',
-                'inicials': 'NM',
-                'emsil': 'antom@gmail.com',
-                'phone': +491111111111,
-            },
-            {
-                'id': '1',
-                'name': 'Christian Mayer',
-                'inicials': 'CM',
-                'emsil': 'antom@gmail.com',
-                'phone': +491111111111,
-            },
-        ],
-        'dueDate': '2024-02-28',
-        'priority': 'low',
-        'category': 'category',
-        'subtasks': [
-            {
-                'text': 'subTasks1',
-                'done': false,
-            },
-            {
-                'text': 'subTasks2',
-                'done': true,
-            },
-        ],
-        'inWichSection': 'feedback',
-    },
-];
+let allTasks = [];
 let sortTasks = {
     'toDo': '',
     'progress': '',
@@ -375,15 +205,15 @@ async function saveTasks() {
     await setItem('allTasks', JSON.stringify(allTasks));
 }
 
-async function saveTasksCategory(tasksToDo, tasksInProgress, tasksAwaitFeedback, tasksDone) {
-    sortTasks = {
-        'toDo': tasksToDo,
-        'progress': tasksInProgress,
-        'feedback': tasksAwaitFeedback,
-        'done': tasksDone,
-    };
-    await setItem('sortTasks', JSON.stringify(sortTasks));
-}
+// async function saveTasksCategory(tasksToDo, tasksInProgress, tasksAwaitFeedback, tasksDone) {
+//     sortTasks = {
+//         'toDo': tasksToDo,
+//         'progress': tasksInProgress,
+//         'feedback': tasksAwaitFeedback,
+//         'done': tasksDone,
+//     };
+//     await setItem('sortTasks', JSON.stringify(sortTasks));
+// }
 
 
 //------------------------------------------------------------------------------//

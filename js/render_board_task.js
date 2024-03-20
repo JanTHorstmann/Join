@@ -1,3 +1,54 @@
+function renderToDoContainer() {
+    return /*html*/ `
+        <div class="task-section-header">
+            <span class="fontSize-21-700 color-42526E">To do</span>
+            <img class="add-task-btn" src="../assets/img/add_subtask.svg" onclick="openAddTask()">
+        </div>
+        <div class="task-area">
+            <div id="to_do_not_found" class="no-task-found">
+                <span class="fontSize-16-400">No tasks To do</span>
+            </div>
+            <div id="to_do_tasks" ondrop="dropTask('to_do')" ondragover="allowDrop(event)"></div>
+        </div>`
+}
+
+function renderProgressContainer(){
+    return /*html*/ `
+        <div class="task-section-header">
+            <span class="fontSize-21-700 color-42526E">In progress</span>
+            <img class="add-task-btn" src="../assets/img/add_subtask.svg" onclick="openAddTask('progress')">
+        </div>
+        <div class="task-area">
+            <div id="progress_not_found" class="no-task-found">
+                <span class="fontSize-16-400">No tasks In progress</span>
+            </div>
+            <div id="progress_tasks" ondrop="dropTask('progress')" ondragover="allowDrop(event)"></div>
+        </div>`
+}
+
+function renderFeedbackContainer() {
+    return /*html*/ `
+        <div id="feedback_container" class="task-section-header">
+            <span class="fontSize-21-700 color-42526E">Await feedback</span>
+            <img class="add-task-btn" src="../assets/img/add_subtask.svg" onclick="openAddTask('feedback')">
+        </div>
+        <div class="task-area">
+            <div id="feedback_not_found" class="no-task-found">
+                <span class="fontSize-16-400">No tasks Await feedback</span>
+            </div>
+            <div id="feedback_tasks" ondrop="dropTask('feedback')" ondragover="allowDrop(event)"></div>
+        </div>`
+}
+
+function renderDoneContainer() {
+    return /*html*/ `
+        <div class="task-section-header">
+            <span class="fontSize-21-700 color-42526E">Done</span>
+        </div>
+        <div id="done_tasks" class="task-area" ondrop="dropTask('done')" ondragover="allowDrop(event)"></div>`
+}
+
+
 function renderBoardTask(id, category, title, description, subtask, prio, doneSubtasks, progressBar) {
     return /*html*/`
         <div id="task${id}" class="task" onclick="openTask(${id})" draggable="true" ondragstart="dragTask(${id})">

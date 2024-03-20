@@ -1,11 +1,19 @@
+let dropdownClicked = false;
+
+function setDropdownClicked(clicked) {
+    dropdownClicked = clicked;
+}
+
 function openTask(i) {
-    let openTaskField = document.getElementById('open_task');
-    let task = allTasks[i];
-    openTaskField.classList.remove('d-none');
-    openTaskField.innerHTML = '';
-    openTaskField.innerHTML = renderOpenTask(task);
-    getAssignedContactsOpenTask(task);
-    getSubtasksOpenTask(task);
+    if (!dropdownClicked) {        
+        let openTaskField = document.getElementById('open_task');
+        let task = allTasks[i];
+        openTaskField.classList.remove('d-none');
+        openTaskField.innerHTML = '';
+        openTaskField.innerHTML = renderOpenTask(task);
+        getAssignedContactsOpenTask(task);
+        getSubtasksOpenTask(task);
+    }
 }
 
 function getAssignedContactsOpenTask(task) {

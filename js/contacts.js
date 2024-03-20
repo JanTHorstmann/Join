@@ -1,6 +1,7 @@
 let letters = [];
 let lastActiveContactID;
 async function initContacts() {
+    await loadTasks();
     await loadContacts();
     generateSideBar();
     sortsContactsByLetter();
@@ -44,10 +45,25 @@ function renderContact(firstLetter, contact) {
 }
 
 async function deleteContact(id) {
+    allTasks.forEach(task => {
+        deleteContactFromTask(id, task);        
+    })
     allContacts.splice(id, 1);
-    await saveContacts();
-    await loadContacts();
-    sortsContactsByLetter();
     let openContact = document.getElementById('open_contact');
+    let openContactResponsive = document.getElementById('show_contact_responsive');
     openContact.innerHTML = '';
+    openContactResponsive.innerHTML = '';
+    await saveContacts();
+    await saveTasks()
+    await loadContacts();
+    await loadTasks();
+    sortsContactsByLetter();
+    closeOpenContact();
+}
+
+function deleteContactFromTask(id, task) {
+    let deleteContactIndex = task.assigned.findIndex(assignedContact => assignedContact.name === allContacts[id].name);
+    if (deleteContactIndex !== -1) {
+        task.assigned.splice(deleteContactIndex, 1);
+    }
 }

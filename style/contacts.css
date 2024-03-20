@@ -2,6 +2,14 @@ a {
     color: #007CEE;
 }
 
+.contacts-background {
+    background-color: rgb(9, 25, 49);
+}
+
+.add-task-background {
+    background-color: unset !important;
+}
+
 .show-contacts {
     /* margin-left: 328px; */
     /* margin-right: 100px; */
@@ -522,7 +530,7 @@ form {
     }
 }
 
-@media (max-width: 730px) {
+@media (max-width: 730px) {  
     .show-contact {
         display: none;
     }
@@ -553,7 +561,7 @@ form {
     .show-contact-responsive img {
         cursor: pointer;
         width: 32px;
-        margin-top: 15px;
+        /* margin-top: 15px; */
     }
 
     .header-responsive {

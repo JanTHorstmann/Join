@@ -117,7 +117,7 @@ body {
 
 .log-in-input input {
     width: 422px;
-    height: 48px;
+    /* height: 48px; */
     outline: none;
     padding: 12px 21px;
     border-radius: 10px;
@@ -265,7 +265,8 @@ a:hover {
 
 .sign-up-form {
     height: 391px;
-    width: 422px;
+    width: 90%;
+    /* width: 422px; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -564,7 +565,10 @@ a:hover {
     }
 
     .rigister-user-login {
-        position: unset;
+        position: fixed;
+        top: unset;
+        bottom: 10px;
+        right: 20px;
         justify-content: center;
     }
 
@@ -577,7 +581,7 @@ a:hover {
     }
 
     .sign-up-form {
-        width: 364px;
+        /* width: 364px; */
         height: 392px;
     }
 
@@ -640,6 +644,10 @@ a:hover {
 
     .reset-password {
         width: 95%;
+    }
+
+    .sign-up {
+        width: 90%;
     }
 }
 
@@ -740,7 +748,7 @@ a:hover {
     .startscreen-logo-side {
         display: none;
     }
-    
+
     .forgot-password {
         height: 500px;
     }

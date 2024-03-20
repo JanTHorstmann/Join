@@ -6,7 +6,7 @@ function renderAddTaskContent() {
             <h1>Add Task</h1>
             <img id="close_add_task_img" class="d-none" src="../assets/img/cross_icon.svg" alt="" onclick="closeAddTask()">
         </div>
-        <form id="add_task_form" onsubmit="createTask(); return false">
+        <form id="add_task_form" onsubmit="createTask(event); return false">
             <div id="form_left" class="form-left"></div>
             <div id="form_right" class="form-right"></div>
 
