@@ -257,14 +257,12 @@ async function loadTaskStatusFromServer() {
  * sorts contacts alphabetically
  */
 function sortContacts() {
-    // sortedContacts = [];
     allContacts.sort((a, b) => {
         if (a.name < b.name) {
             return -1;
         }
     });
     generateIDContacts(allContacts);
-    // saveContacts();
 }
 
 /**
@@ -280,13 +278,13 @@ function generateIDContacts(array) {
 /**
  * generate an unique ID
  */
-function generateUniqueID() {
-    let randomNumber = function () {
-        return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
-    };
-    let generatedNumber = (randomNumber() + randomNumber() + "-" + randomNumber() + "-" + randomNumber() + "-" + randomNumber() + "-" + randomNumber() + randomNumber() + randomNumber());
-    return generatedNumber;
-}
+// function generateUniqueID() {
+//     let randomNumber = function () {
+//         return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+//     };
+//     let generatedNumber = (randomNumber() + randomNumber() + "-" + randomNumber() + "-" + randomNumber() + "-" + randomNumber() + "-" + randomNumber() + randomNumber() + randomNumber());
+//     return generatedNumber;
+// }
 
 
 //id for User//

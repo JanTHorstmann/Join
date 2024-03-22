@@ -3,7 +3,6 @@ function openContact(id) {
     let openContactResponsive = document.getElementById('open_contact_responsive');
     hoverActiveContact(id);
     let windowSize = window.innerWidth;
-    // console.log(windowSize);
     let contact = allContacts[id];
     let phoneNumber = splitPhoneNumber(contact.phone);
     if (windowSize > 730) {
@@ -20,19 +19,21 @@ function hoverActiveContact(id) {
     hoverContact.classList.add('active-contact');
     if (lastActiveContactID >= 0) {
         let lastActiveContact = document.getElementById(`selectable_contact${lastActiveContactID}`);
-        lastActiveContact.classList.remove('active-contact');   
+        if (lastActiveContact) {
+            lastActiveContact.classList.remove('active-contact');
+        }
     }
     lastActiveContactID = id;
 }
 
 function splitPhoneNumber(phoneNumber) {
     let stringNumber = String(phoneNumber)
-    let formattedNumber = '+' + stringNumber.substring(0, 2) + ' ' + // Landesvorwahl
-                          stringNumber.substring(2, 6) + ' ' +        // Ortsvorwahl
-                          stringNumber.substring(6, 9) + ' ' +        // Teil 1
-                          stringNumber.substring(9, 11) + ' ' +       // Teil 2
-                          stringNumber.substring(11);                // Teil 3
-                          
+    let formattedNumber = '0' + ' ' + stringNumber.substring(0, 2) + ' ' + 
+        stringNumber.substring(2, 6) + ' ' +        
+        stringNumber.substring(6, 9) + ' ' +        
+        stringNumber.substring(9, 11) + ' ' +      
+        stringNumber.substring(11);                
+
     return formattedNumber;
 }
 
@@ -42,14 +43,14 @@ function closeOpenContact(isOpen) {
         showContactResponsive.classList.remove('d-none');
     } else {
         showContactResponsive.classList.add('d-none');
-    }    
+    }
 }
 
 function renderOpenContact(contact, phoneNumber) {
     return /*html*/ `
         <div class="open-contact">
             <div class="open-contact-header ">
-                <span class="contact-inicials-open-contact">${contact.inicials}</span>
+                <span class="contact-inicials-open-contact" style="background-color: ${contact.inicialcolor};">${contact.inicials}</span>
                 <div class="flex-column-gap8">
                     <span class="contact-name-open-contact">${contact.name}</span>
                     <div class="edit-delete-open-contact">

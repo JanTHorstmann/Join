@@ -13,8 +13,6 @@ function taskTemplate(title, description, dueDate, category) {
     }
     allTasks.push(task);
     getTaskID();
-    console.log('Task is:', task);
-    console.log('allTasks is:', allTasks);
 }
 
 function clearAddTaskInputs(event) {
@@ -29,20 +27,25 @@ function clearAddTaskInputs(event) {
     selectedContacts(choosenContacts);
 }
 
-async function createTask(event) {
+async function createTask(event, isOnBoard) {
     let title = document.getElementById('title_input');
     let description = document.getElementById('description_input');
     let dueDate = document.getElementById('due_date_input');
     let category = document.getElementById('category_input');
     if (selectedPrio) {
-        console.log('task created');
         taskTemplate(title.value, description.value, dueDate.value, category.value);
         clearAddTaskInputs(event);
         taskSuccessfullyCreated();
         await saveTasks();
+        await loadTasks();
     } else {
-        console.log('task not created');
+        let prioBtnRequired = document.getElementById('prio_btn_required');
+        prioBtnRequired.classList.add('required');
     }
+    if (isOnBoard == 'onBoard') {
+        closeAddTask();
+    }
+    event.preventDefault();
 }
 
 function taskSuccessfullyCreated() {

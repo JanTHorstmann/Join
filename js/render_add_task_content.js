@@ -1,4 +1,4 @@
-function renderAddTaskContent() {
+function renderAddTaskContent(isBoard) {
     let addTaskContent = document.getElementById('add_task_content');
 
     addTaskContent.innerHTML = /*html*/ `
@@ -6,7 +6,7 @@ function renderAddTaskContent() {
             <h1>Add Task</h1>
             <img id="close_add_task_img" class="d-none" src="../assets/img/cross_icon.svg" alt="" onclick="closeAddTask()">
         </div>
-        <form id="add_task_form" onsubmit="createTask(event); return false">
+        <form id="add_task_form" onsubmit="createTask(event, '${isBoard}'); return false">
             <div id="form_left" class="form-left"></div>
             <div id="form_right" class="form-right"></div>
 
@@ -131,8 +131,9 @@ function renderPrioBtnInput() {
             <div id="prio_btn_low" class="prio-btn hover-effect fontSize-20-400" onclick="selctPrio('low')">
                 <span>Low</span>
                 <img id="low_btn" src="../assets/img/low_icon.svg">
-            </div>
-        </div>`;
+            </div>            
+        </div>
+        <label id="prio_btn_required" class="required-text color-transparent">This field is required</label>`;
 }
 
 function renderCategoryInput() {
@@ -176,11 +177,11 @@ function renderSelectedContacts(selectedContactContainer, overFlowContainer, con
         if ((containerWidth - 46) > totalWidthContacts) {
             const choosenContact = assignedContacts[i];
             selectedContactContainer.innerHTML += `
-            <span class="contact-inicials" onclick="removeChoosenContacts(${choosenContact.id})">${choosenContact.inicials}</span>`;
+            <span class="contact-inicials" style="background-color: ${choosenContact.inicialcolor};" onclick="removeChoosenContacts(${choosenContact.id})">${choosenContact.inicials}</span>`;
         } else {
             hiddenContacts++;
             overFlowContainer.innerHTML = `
-            <span class="contact-inicials">+${hiddenContacts}</span>`;
+            <span class="contact-inicials" style="background-color: #D1D1D1;">+${hiddenContacts}</span>`;
         }
     }
 }

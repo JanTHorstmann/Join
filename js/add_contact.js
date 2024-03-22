@@ -1,8 +1,9 @@
-function contactTemplate(name, inicials, email, phoneNumber) {
+function contactTemplate(name, inicials, color, email, phoneNumber) {
     let contact = {
         'id': '',
         'name': name,
         'inicials': inicials,
+        'inicialcolor': color,
         'email': email,
         'phone': +phoneNumber,
     }
@@ -65,10 +66,10 @@ async function createContact() {
     let mail = document.getElementById('contact_email');
     let phone = document.getElementById('contact_phone');
     let inicials = getInitials(name.value);
-    let contact = contactTemplate(name.value, inicials, mail.value, phone.value);
+    let inicialcolor = generateRandomColor();
+    let contact = contactTemplate(name.value, inicials, inicialcolor, mail.value, phone.value);
     allContacts.push(contact);
-    saveContacts();
-    // console.log(contact);
+    await saveContacts();
     await loadContacts();
     sortsContactsByLetter();
     showAddContactBanner();
@@ -91,4 +92,16 @@ function clearAddContactInputs(event) {
     event.preventDefault();
     let form = document.getElementById('form_add_contact');
     form.reset();
+}
+
+function generateRandomColor() {
+    const characters = '0123456789ABCDEF';
+    let color = '#';
+    do {
+        color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += characters[Math.floor(Math.random() * 16)];
+        }
+    } while (color === '#FFFFFF' || color === '#000000');
+    return color;
 }

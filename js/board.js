@@ -126,11 +126,11 @@ function renderSelectedContactsBoard(assignedField, overFlowContainer, container
         let totalWidthContacts = calculateContainerWidthBord(assignedField);
         if ((containerWidth - 46) > totalWidthContacts) {
             const choosenContact = assignedContacts[i];
-            assignedField.innerHTML += renderAssignedContacts(choosenContact.inicials);
+            assignedField.innerHTML += renderAssignedContacts(choosenContact.inicials, choosenContact.inicialcolor);
         } else {
             hiddenContacts++;
             overFlowContainer.innerHTML = `
-            <span class="contact-inicials">+${hiddenContacts}</span>`;
+            <span class="contact-inicials" style="background-color: #D1D1D1;">+${hiddenContacts}</span>`;
         }
     }
 }
@@ -140,11 +140,9 @@ async function checkSubtask(taskId, subtaskId) {
     let taskDone = allTasks[taskId]['subtasks'][subtaskId]['done'];
     if (taskDone) {
         allTasks[taskId]['subtasks'][subtaskId]['done'] = !allTasks[taskId]['subtasks'][subtaskId]['done'];
-        console.log('not done', allTasks[taskId]['subtasks'][subtaskId]['done']);
         imgSrc.src = '../assets/img/checkbutton.svg';
     } else {
         allTasks[taskId]['subtasks'][subtaskId]['done'] = !allTasks[taskId]['subtasks'][subtaskId]['done'];
-        console.log('done', allTasks[taskId]['subtasks'][subtaskId]['done']);
         imgSrc.src = '../assets/img/checkbuttonchecked.svg';
     }
     await saveTasks();
@@ -155,14 +153,14 @@ function openAddTask(sectionContainer) {
     let openAddTask = document.getElementById('open_task');
     openAddTask.classList.remove('d-none');
     openAddTask.innerHTML = /*html*/`<div class="open-add-task" id="add_task_content"></div>`
-    renderAddTaskContent();
+    renderAddTaskContent('onBoard');
     renderAssignedTo();
     let closeTaskImg = document.getElementById('close_add_task_img');
     closeTaskImg.classList.remove('d-none')
 }
 
 async function closeAddTask() {
-    inWichContainer = 'to_do';
+    // inWichContainer = 'to_do';
     let openAddTask = document.getElementById('open_task');
     openAddTask.classList.add('d-none');
     openAddTask.innerHTML = '';

@@ -36,7 +36,7 @@ function renderContact(firstLetter, contact) {
     let contactLetter = document.getElementById(`${firstLetter}`);
     contactLetter.innerHTML += /*html*/`
     <div id="selectable_contact${contact.id}" class="contact" onclick="openContact(${contact.id})">
-        <span class="contact-inicials">${contact.inicials}</span>
+        <span class="contact-inicials" style="background-color: ${contact.inicialcolor};">${contact.inicials}</span>
         <div class="contact-details">
             <span class="contact-name fontSize-20-400">${contact.name}</span>
             <a href="#" class="fontSize-16-400">${contact.email}</a>
@@ -54,9 +54,11 @@ async function deleteContact(id) {
     openContact.innerHTML = '';
     openContactResponsive.innerHTML = '';
     await saveContacts();
-    await saveTasks()
+    await saveTasks();
     await loadContacts();
     await loadTasks();
+    // sortContacts();
+    taskContactsGetNewID()
     sortsContactsByLetter();
     closeOpenContact();
 }
@@ -66,4 +68,15 @@ function deleteContactFromTask(id, task) {
     if (deleteContactIndex !== -1) {
         task.assigned.splice(deleteContactIndex, 1);
     }
+}
+
+function taskContactsGetNewID() {
+    allContacts.forEach(contact => {
+        allTasks.forEach(task => {
+            let contactID = task.assigned.findIndex(assignedContact => assignedContact.name === contact.name) 
+            if (contactID !== -1) {
+                task.assigned[contactID]['id'] = contact.id
+            }
+        })
+    });
 }

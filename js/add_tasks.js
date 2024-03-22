@@ -24,7 +24,7 @@ function renderAssignedTo() {
             const contact = allContacts[i];
             contactsField.innerHTML += `
                 <div id="selectable_contact${contact.id}" class="contact-assign-to" onclick="checkBtnAssignTo(${contact.id})">
-                        <span class="contact-inicials">${contact.inicials}</span>
+                        <span class="contact-inicials" style="background-color: ${contact.inicialcolor};">${contact.inicials}</span>
                         <span class="contact-name">${contact.name}</span>
                     <img id="contact_check_btn${contact.id}" src="../assets/img/checkbutton.svg">
                 </div>`;
@@ -156,8 +156,6 @@ function renderSubtask() {
 }
 
 function editSubtask(i) {
-    // renderSubtask();
-    // console.log('edit', i);
     let editSubtask = document.getElementById(`list_container${i}`)
     editSubtask.innerHTML = /*html*/` 
         <div class="edit-subtask">

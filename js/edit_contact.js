@@ -26,11 +26,11 @@ function renderEditContact(contact) {
             </div>
             <form id="form_add_contact" onsubmit="saveEditContact(${contact.id}); return false">
                 <div class="add-contact-inputs">
-                <span class="contact-inicials-open-contact">${contact.inicials}</span>
+                <span class="contact-inicials-open-contact" style="background-color: ${contact.inicialcolor};">${contact.inicials}</span>
                     <div class="inputfield-add-contact">
                         <input value="${contact.name}" id="contact_name" class="inputs-add-contact fontSize-20-400" type="text" placeholder="Name">
                         <input value="${contact.email}" id="contact_email" class="inputs-add-contact fontSize-20-400" type="email" placeholder="Email">
-                        <input value="${contact.phone}" id="contact_phone" class="inputs-add-contact fontSize-20-400" type="tel" placeholder="Phone" pattern="[0-9]{12,}" title="Bitte gib mindestens 8 Ziffern ein.">
+                        <input value="${contact.phone}" id="contact_phone" class="inputs-add-contact fontSize-20-400" type="tel" placeholder="Phone" pattern="[0-9]{8,}" title="Bitte gib mindestens 8 Ziffern ein.">
                     </div>
                 </div>
                     <div class="clear-create-btn">
@@ -46,10 +46,9 @@ async function saveEditContact(id) {
     let mail = document.getElementById('contact_email');
     let phone = document.getElementById('contact_phone');
     let inicials = getInitials(name.value);
-    let contact = contactTemplate(name.value, inicials, mail.value, phone.value);
+    let contact = contactTemplate(name.value, inicials, allContacts[id].inicialcolor, mail.value, phone.value);
     allContacts[id]= contact;
     await saveContacts();
-    // console.log(contact);
     closeAddContact();
     await loadContacts();
     sortsContactsByLetter();

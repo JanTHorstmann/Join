@@ -73,7 +73,7 @@ function editGetValue(i) {
     selectedContactsAtEditTask(i);
 }
 
-function saveEditTask(id) {
+async function saveEditTask(id) {
     let task = allTasks[id];
     let titleInput = document.getElementById('title_input');
     let descriptionInput = document.getElementById('description_input');
@@ -81,13 +81,14 @@ function saveEditTask(id) {
     task.title = titleInput.value;
     task.description = descriptionInput.value;
     task.dueDate = dueDateInput.value;
-    saveTasks();
+    await saveTasks();
     openTask(id);
 }
 
-function deleteTask(id) {
+async function deleteTask(id) {
     allTasks.splice(id, 1);
-    saveTasks();
+    await saveTasks();
+    getTaskID();
     closeTask();
     sortTasksToSections();
 }
@@ -153,7 +154,7 @@ function renderAssignedToAtEditTask(taskID) {
             const contact = allContacts[i];
             contactsField.innerHTML += `
                 <div id="selectable_contact${contact.id}" class="contact-assign-to" onclick="checkBtnAssignToEditTask(${taskID},${contact.id})">
-                        <span class="contact-inicials">${contact.inicials}</span>
+                        <span class="contact-inicials" style="background-color: ${contact.inicialcolor};">${contact.inicials}</span>
                         <span class="contact-name">${contact.name}</span>
                     <img id="contact_check_btn${contact.id}" src="../assets/img/checkbutton.svg">
                 </div>`;
@@ -212,11 +213,11 @@ function renderSelectedContactsAtEditTask(selectedContactContainer, overFlowCont
         if ((containerWidth - 46) > totalWidthContacts) {
             const choosenContact = assignedTaskContacts[i];
             selectedContactContainer.innerHTML += `
-            <span class="contact-inicials" onclick="removeAssignedContacts(${taskID}, ${i})">${choosenContact.inicials}</span>`;
+            <span class="contact-inicials" style="background-color: ${choosenContact.inicialcolor};" onclick="removeAssignedContacts(${taskID}, ${i})">${choosenContact.inicials}</span>`;
         } else {
             hiddenContacts++;
             overFlowContainer.innerHTML = `
-            <span class="contact-inicials">+${hiddenContacts}</span>`;
+            <span class="contact-inicials" style="background-color: #D1D1D1;">+${hiddenContacts}</span>`;
         }
     }
 }

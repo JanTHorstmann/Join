@@ -73,9 +73,9 @@ function renderBoardTask(id, category, title, description, subtask, prio, doneSu
         </div>` 
 }
 
-function renderAssignedContacts(inicials) {      
+function renderAssignedContacts(inicials, inicialcolor) {      
     return /*html*/`
-        <span class="contact-inicials-board-task">${inicials}</span>`  
+        <span class="contact-inicials-board-task" style="background-color: ${inicialcolor};">${inicials}</span>`  
 }
 
 function renderOpenTask(task) {
@@ -128,7 +128,7 @@ function renderOpenTask(task) {
 function renderAssignedContactsOpenTask(contact) { 
    return /*html*/ `
         <div class="contact-inicials-name">
-            <span class="contact-inicials">${contact.inicials}</span>
+            <span class="contact-inicials" style="background-color: ${contact.inicialcolor};">${contact.inicials}</span>
             <span class="fontSize-19-400">${contact.name}</span>
         </div>`    
 }

@@ -45,18 +45,17 @@ function renderSelectedContactsBoard(assignedField, overFlowContainer, container
         let totalWidthContacts = calculateContainerWidthBord(assignedField);
         if ((containerWidth - 46) > totalWidthContacts) {
             const choosenContact = assignedContacts[i];
-            assignedField.innerHTML += renderAssignedContacts(choosenContact.inicials);
+            assignedField.innerHTML += renderAssignedContacts(choosenContact.inicials, choosenContact.inicialcolor);
         } else {
             hiddenContacts++;
             overFlowContainer.innerHTML = `
-            <span class="contact-inicials">+${hiddenContacts}</span>`;
+            <span class="contact-inicials" style="background-color: ${contact.inicialcolor};">+${hiddenContacts}</span>`;
         }
     }
 }
 
 function changeSection() {
     let section = document.getElementById('section_selection').value;
-    console.log(section);
     hideAllResponsiveContainer();
     document.getElementById(`${section}_container_responsive`).classList.remove('d-none');
     sortTasksToSections();
