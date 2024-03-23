@@ -223,7 +223,7 @@ async function fillSummary() {
     let userName = getUserName();
     let users = JSON.parse(await getItem('users'));
     let user = users.find(u => u.name == userName);
-    countTasks('to_do_count', 'toDo');
+    countTasks('to_do_count', 'to_do');
     countTasks('done_count', 'done');
     countPriority('priority', 'urgent', 'urgend_count');
     countTasks('task_progress_count', 'progress');
@@ -262,13 +262,19 @@ function countPriority(taskcategory, status, containerID) {
 
 /**
  * Count Task Category
- * @param {string} user 
  * @param {string} containerID 
  * @param {string} category 
  */
 function countTasks(containerID, category) {
-let taskCounter =  sortTasks[category];
-document.getElementById(containerID).innerHTML = taskCounter.length;
+let taskCounter = 0;
+
+allTasks.forEach(task => {
+    let taskSection = task.inWichSection;
+    if (taskSection == category) {
+        taskCounter++;
+    }
+});
+document.getElementById(containerID).innerHTML = taskCounter;
 }
 
 
@@ -305,7 +311,7 @@ function findDueDate() {
     // let tasks = user['tasks']
     for (let i = 0; i < allTasks.length; i++) {
         if (allTasks[i]['priority'] == 'urgent') {            
-            let task = new Date(allTasks[i]['createdAt']);
+            let task = new Date(allTasks[i]['dueDate']);
             if (task < closestDate || closestDate === null)
                 closestDate = task;
         }

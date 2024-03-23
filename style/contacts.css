@@ -541,6 +541,7 @@ form {
     }
 
     .show-contact-responsive {
+        overflow-y: auto;
         z-index: 1;
         padding: 25px;
         background-color: #F6F7F8;
@@ -550,7 +551,7 @@ form {
         display: flex;
         flex-direction: column;
         gap: 20px;
-        height: calc(100vh - 181px);
+        height: calc(100vh - 210px);
         width: 100%;
     }
 
@@ -609,5 +610,15 @@ form {
     .all-contacts {
         padding-left: 15px;
         padding-right: 15px;
+    }
+}
+
+@media (max-width: 360px) {
+    .close-add-contact-responsive {
+        margin-bottom: 0;
+    }
+
+    .add-contact {
+        height: 90vh;
     }
 }

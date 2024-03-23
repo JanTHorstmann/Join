@@ -41,16 +41,17 @@ function loadLoakalUser() {
  */
 async function logIn(guest) {
     let email = document.getElementById('email_log_in');
-    let password1 = document.getElementById('password1_input');
+    let emailToLowerCase = email.value.toLowerCase();
+    let password = document.getElementById('password1_input');
     let users = JSON.parse(await getItem('users'));
     if (guest == 'guest@guest.com') {
         window.location.href = 'summary.html?msg=Welcomme to Join, Guest';
     } else {
-        let user = users.find(u => u.email == email.value && u.password == password1.value);
+        let user = users.find(u => u.email == emailToLowerCase && u.password == password.value);
         if (user) {
             window.location.href = `summary.html?msg=Welcomme to Join, ${user.name}`;            
         } else {
-            wrongEnter(users, email.value, password1.value);
+            wrongEnter(users, email.value, password.value);
             return
         }
     }

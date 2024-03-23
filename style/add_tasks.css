@@ -392,6 +392,10 @@ textarea {
         margin-bottom: 90px;
     }
 
+    h1 {
+        margin-bottom: 10px;
+    }
+
     .info-btn-field {
         width: calc(100% - 200px);
         bottom: 80px;
