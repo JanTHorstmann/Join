@@ -97,12 +97,10 @@ textarea {
 .select-contact-container {
     width: 100%;
     overflow-y: auto;
-    /* padding-top: 15px; */
     position: absolute;
     border-radius: 10px;
     background-color: #FFFFFF;
     max-height: 240px;
-    /* transition: transform 100ms ease-in-out; */
     display: flex;
     flex-direction: column;
     gap: 2px;
@@ -209,8 +207,7 @@ textarea {
 }
 
 .subtask-list-element {
-    /* padding: 6px 0px; */
-    height: 24px;
+    /* height: 24px; */
     display: flex;
     width: 100%;
     justify-content: space-between;
@@ -412,7 +409,6 @@ textarea {
     form {
         margin-bottom: 100px;
         flex-direction: column;
-        /* overflow-y: auto; */
     }
 
     .form-left {
@@ -456,5 +452,13 @@ textarea {
 
     .prio-btn-selected-font {
         font-size: 12px;
+    }
+
+    .prio-btn {
+        margin: 5px 0;
+    }
+
+    .prio-btn-field {
+        flex-wrap: wrap;
     }
 }

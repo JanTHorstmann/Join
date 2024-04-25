@@ -11,8 +11,6 @@ a {
 }
 
 .show-contacts {
-    /* margin-left: 328px; */
-    /* margin-right: 100px; */
     height: calc(100vh - 104px);
     display: flex;
     gap: 30px;
@@ -26,7 +24,6 @@ a {
     padding-left: 260px;
     padding-right: 50px;
     height: 100%;
-    /* width: 350px; */
     min-width: 350px;
     max-width: 350px;
     background-color: #FFFFFF;
@@ -35,16 +32,13 @@ a {
 
 .contact {
     border-radius: 10px;
-    /* width: 200px; */
     cursor: pointer;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     gap: 10px;
     margin-top: 20px;
     margin-left: -15px;
     padding: 15px 24px;
-    /* background-color: #FFFFFF; */
 }
 
 .contact-name {
@@ -99,7 +93,6 @@ a {
     cursor: pointer;
     display: flex;
     align-items: center;
-    /* justify-content: space-between; */
     gap: 35px;
     padding-top: 24px;
     background-color: #FFFFFF;
@@ -159,13 +152,11 @@ a {
     margin-top: 20px;
     display: flex;
     align-items: center;
-    /* justify-content: space-between; */
     gap: 54px;
     width: 100%;
 }
 
 .contact-inicials-open-contact {
-    /* cursor: pointer; */
     border: 3px solid #FFFFFF;
     border-radius: 100%;
     background-color: #FF7A00;
@@ -187,7 +178,6 @@ a {
 
 .edit-delete-open-contact {
     display: flex;
-    /* gap: 24px; */
 }
 
 .edit-delete-contact {
@@ -199,7 +189,6 @@ a {
 }
 
 .edit-delete-contact:hover {
-    /* color: #29ABE2; */
     font-weight: 700;
     filter: invert(52%) sepia(93%) saturate(538%) hue-rotate(162deg) brightness(95%) contrast(86%);
 }
@@ -215,14 +204,11 @@ a {
 }
 
 .add-contact-overlay {
-    /* width: 100%; */
-    /* height: 100vh; */
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    /* background-color: rgb(209, 209, 209, 0.3); */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -375,7 +361,6 @@ form {
     border-radius: 100%;
     border: none;
     background-color: #2A3647;
-    /* padding: 12px 0; */
     width: 66px;
     height: 66px;
     color: #FFFFFF;
@@ -482,7 +467,6 @@ form {
     }
 
     .add-contact-inputs {
-        /* margin-top: 60px; */
         flex-direction: column;
         align-items: center;
         gap: 12px;
@@ -562,7 +546,6 @@ form {
     .show-contact-responsive img {
         cursor: pointer;
         width: 32px;
-        /* margin-top: 15px; */
     }
 
     .header-responsive {

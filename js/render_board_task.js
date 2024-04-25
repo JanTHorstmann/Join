@@ -80,6 +80,7 @@ function renderAssignedContacts(inicials, inicialcolor) {
 
 function renderOpenTask(task) {
     return /*html*/`
+        <div class="task-bg" onclick="closeTask()"></div>
         <div class="open-task">
             <div class="flex-between-center">
                 <span class="open-task-category color-FFFFFF">${task.category}</span>

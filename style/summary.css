@@ -38,8 +38,6 @@
     justify-content: space-between;
 }
 
-/*--------------------------Headline-----------------------*/
-
 .header-summary {
     display: flex;
     align-items: center;
@@ -55,8 +53,6 @@
     height: 59px;
     border-right: 3px solid #29ABE2;
 }
-
-/*---------------------Task Board--------------------------*/
 
 .tasks-and-greeting {
     display: flex;
@@ -178,8 +174,6 @@
     height: 100%;
 }
 
-/*---------------------Greeting User-------------------*/
-
 #greeting_user {
     margin-left: -328px;
     display: flex;
@@ -214,8 +208,6 @@
     left: 0;
     right: 0;
     bottom: 0;
-    /* width: 100%;
-    height: 100%; */
     background-color: rgba(246, 247, 248, 1)
 }
 

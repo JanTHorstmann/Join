@@ -1,3 +1,12 @@
+/**
+ * template for saved contacts
+ * @param {string} name 
+ * @param {string} inicials 
+ * @param {string} color 
+ * @param {string} email 
+ * @param {number} phoneNumber 
+ * @returns 
+ */
 function contactTemplate(name, inicials, color, email, phoneNumber) {
     let contact = {
         'id': '',
@@ -10,6 +19,9 @@ function contactTemplate(name, inicials, color, email, phoneNumber) {
     return contact;
 }
 
+/**
+ * open template for add new contact
+ */
 function openAddContact() {
     let contactField = document.getElementById('add_contact');
     let addContactInputs = document.getElementById('add_contact_inputs');
@@ -20,6 +32,9 @@ function openAddContact() {
     }, 110);
 }
 
+/**
+ * close template for add new contact
+ */
 function closeAddContact() {
     let contactField = document.getElementById('add_contact');
     let addContactInputs = document.getElementById('add_contact_inputs');
@@ -29,6 +44,10 @@ function closeAddContact() {
     }, 110);
 }
 
+/**
+ * 
+ * @returns html code for add contact template
+ */
 function renderAddContact() {
     return /*html*/ `
         <div class="add-contact-header">
@@ -61,6 +80,9 @@ function renderAddContact() {
         </div>`
 }
 
+/**
+ * get inputs, create and save new contact
+ */
 async function createContact() {
     let name = document.getElementById('contact_name');
     let mail = document.getElementById('contact_email');
@@ -75,6 +97,9 @@ async function createContact() {
     showAddContactBanner();
 }
 
+/**
+ * message if new contact created
+ */
 function showAddContactBanner() {
     let contactBanner = document.getElementById('contact_created_banner');
     contactBanner.classList.remove('d-none');
@@ -88,12 +113,20 @@ function showAddContactBanner() {
     }, 800);
 }
 
+/**
+ * clear inputs
+ * @param {event} event 
+ */
 function clearAddContactInputs(event) {
     event.preventDefault();
     let form = document.getElementById('form_add_contact');
     form.reset();
 }
 
+/**
+ * get a random color for the new contact
+ * @returns color code
+ */
 function generateRandomColor() {
     const characters = '0123456789ABCDEF';
     let color = '#';

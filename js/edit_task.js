@@ -1,9 +1,10 @@
 function editOpenTask(id) {
     let openTaskField = document.getElementById('open_task');
     openTaskField.innerHTML = /*html*/` 
-    <div class="close-edit-img">
-        <img id="close_add_task_img" class="" src="../assets/img/cross_icon.svg" onclick="closeAddTask()">
-    </div>`;
+        <div class="task-bg" onclick="closeTask()"></div>
+        <div class="close-edit-img">
+            <img id="close_add_task_img" class="" src="../assets/img/cross_icon.svg" onclick="closeAddTask()">
+        </div>`;
     openTaskField.innerHTML += renderEditOpenTask(id);
     renderTitleInput();
     renderDescriptionInput();

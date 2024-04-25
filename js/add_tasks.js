@@ -1,3 +1,6 @@
+/**
+ * init add task site
+ */
 async function initAddTask() {
     await loadContacts();
     await loadTasks();
@@ -10,10 +13,11 @@ let subTasks = [];
 let selectedPrio;
 let choosenContacts = [];
 
+/**
+ * render assigned to contacts
+ */
 function renderAssignedTo() {
     let contactsField = document.getElementById('select_contacts_container');
-    // contactsField.innerHTML = `
-    //     <option class="d-none fontSize-20-400" value="" disabled selected>Select contacts to assign</option>`;
     if (allContacts.length <= 0) {
         contactsField.innerHTML += `
             <div class="contact-assign-to">
@@ -32,7 +36,9 @@ function renderAssignedTo() {
     }
 }
 
-
+/**
+ * open drop down for contacts
+ */
 function openDropDown() {
     let dropDownMenu = document.getElementById('select_contacts_container');
     let dropDownArrow = document.getElementById('dropdown_arrwo_contacts');
@@ -42,6 +48,10 @@ function openDropDown() {
     closeAssigned.classList.toggle('d-none');
 }
 
+/**
+ * get prio for task
+ * @param {string} prio 
+ */
 function selctPrio(prio) {
     selectedPrio = prio;
     let urgendBtn = document.getElementById(`prio_btn_urgent`);
@@ -59,6 +69,12 @@ function selctPrio(prio) {
     }
 }
 
+/**
+ * reset choosen prio btn
+ * @param {Element} urgendBtn 
+ * @param {Element} mediumBtn 
+ * @param {Element} lowBtn 
+ */
 function resetPrioBtn(urgendBtn, mediumBtn, lowBtn) {
     urgendBtn.classList.remove('hover-effect', 'prio-btn-selected-font', 'urgent-btn-selected-bg');
     mediumBtn.classList.remove('hover-effect', 'prio-btn-selected-font', 'medium-btn-selected-bg');
@@ -68,6 +84,12 @@ function resetPrioBtn(urgendBtn, mediumBtn, lowBtn) {
     document.getElementById(`low_btn`).src = `../assets/img/low_icon.svg`
 }
 
+/**
+ * select urgent btn
+ * @param {Element} urgendBtn 
+ * @param {Element} mediumBtn 
+ * @param {Element} lowBtn 
+ */
 function selctUrgentBtn(urgendBtn, mediumBtn, lowBtn) {
     urgendBtn.classList.add('urgent-btn-selected-bg', 'prio-btn-selected-font');
     mediumBtn.classList.add('hover-effect', 'fontSize-20-400');
@@ -75,6 +97,12 @@ function selctUrgentBtn(urgendBtn, mediumBtn, lowBtn) {
     document.getElementById(`urgent_btn`).src = `../assets/img/urgent_selected.svg`
 }
 
+/**
+ * select meduim btn
+ * @param {Element} urgendBtn 
+ * @param {Element} mediumBtn 
+ * @param {Element} lowBtn 
+ */
 function selctMediumBtn(urgendBtn, mediumBtn, lowBtn) {
     mediumBtn.classList.add('medium-btn-selected-bg', 'prio-btn-selected-font');
     urgendBtn.classList.add('hover-effect', 'fontSize-20-400');
@@ -82,6 +110,12 @@ function selctMediumBtn(urgendBtn, mediumBtn, lowBtn) {
     document.getElementById(`medium_btn`).src = `../assets/img/medium_selected.svg`
 }
 
+/**
+ * select low btn
+ * @param {Element} urgendBtn 
+ * @param {Element} mediumBtn 
+ * @param {Element} lowBtn 
+ */
 function selctLowBtn(urgendBtn, mediumBtn, lowBtn) {
     lowBtn.classList.add('low-btn-selected-bg', 'prio-btn-selected-font');
     urgendBtn.classList.add('hover-effect', 'fontSize-20-400');
@@ -89,6 +123,11 @@ function selctLowBtn(urgendBtn, mediumBtn, lowBtn) {
     document.getElementById(`low_btn`).src = `../assets/img/low_selected.svg`
 }
 
+/**
+ * show edit icon
+ * @param {string} visibility 
+ * @param {number} idCounter 
+ */
 function showHideEditIcons(visibility, idCounter) {
     let editIcons = document.getElementById(`edit_icons${idCounter}`);
     if (visibility == 'show') {
@@ -98,6 +137,11 @@ function showHideEditIcons(visibility, idCounter) {
     }
 }
 
+/**
+ * show confirmation icon
+ * @param {string} hideIcon 
+ * @param {string} showIcon 
+ */
 function showConfirmationIcons(hideIcon, showIcon) {
     let hide = document.getElementById(`${hideIcon}_icon`);
     let show = document.getElementById(`${showIcon}_icon`);
@@ -105,12 +149,18 @@ function showConfirmationIcons(hideIcon, showIcon) {
     show.classList.remove('d-none');
 }
 
+/**
+ * clear input
+ */
 function clearSubtaskInput() {
     let subTaskt = document.getElementById('subtask_input');
     subTaskt.value = '';
     showConfirmationIcons('add_clear', 'edit');
 }
 
+/**
+ * add subtask
+ */
 function addSubTask() {
     showConfirmationIcons('add_clear', 'edit')
     let subTaskt = document.getElementById('subtask_input');
@@ -122,6 +172,10 @@ function addSubTask() {
     renderSubtask();
 }
 
+/**
+ * save subtask
+ * @param {Number} i 
+ */
 function saveSubtast(i) {
     let subTaskInput = document.getElementById(`edit_subtaskt_input${i}`);
     subTasks[i] = 
@@ -133,6 +187,9 @@ function saveSubtast(i) {
     renderSubtask();
 }
 
+/**
+ * render saved subtasks
+ */
 function renderSubtask() {
     let subTasktContainer = document.getElementById('subtask_container');
     subTasktContainer.innerHTML = '';
@@ -155,6 +212,10 @@ function renderSubtask() {
     }
 }
 
+/**
+ * get html to edit subtask
+ * @param {Number} i 
+ */
 function editSubtask(i) {
     let editSubtask = document.getElementById(`list_container${i}`)
     editSubtask.innerHTML = /*html*/` 
@@ -169,11 +230,19 @@ function editSubtask(i) {
         </div>`
 }
 
+/**
+ * delete subtask
+ * @param {Number} i 
+ */
 function deleteSubtask(i) {
     subTasks.splice(i, 1);
     renderSubtask();
 }
 
+/**
+ * visual icon for choosen contact
+ * @param {Number} i 
+ */
 function checkBtnAssignTo(i) {
     let assignToCheckBtn = document.getElementById(`contact_check_btn${i}`);
     let selectedContact = document.getElementById(`selectable_contact${i}`);
@@ -188,6 +257,10 @@ function checkBtnAssignTo(i) {
     }
 }
 
+/**
+ * remove choosen contact
+ * @param {Number} i 
+ */
 function removeChoosenContacts(i) {
     let assignToCheckBtn = document.getElementById(`contact_check_btn${i}`);
     let selectedContact = document.getElementById(`selectable_contact${i}`);
