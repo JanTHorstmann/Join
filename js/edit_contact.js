@@ -47,11 +47,11 @@ async function saveEditContact(id) {
     let phone = document.getElementById('contact_phone');
     let inicials = getInitials(name.value);
     let currentContact = findContact(id);
-    let newContact = contactTemplate(currentContact.id, name.value, inicials, allContacts[id].inicialcolor, mail.value, phone.value);
+    let newContact = contactTemplate(currentContact.id, name.value, inicials, currentContact.inicialcolor, mail.value, phone.value);
     currentContact= newContact;
     await saveContacts('edit', newContact);
     closeAddContact();
-    // await loadContacts();
+    await loadContacts();
     sortsContactsByLetter();
     openContact(id);
 }

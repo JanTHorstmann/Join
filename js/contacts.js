@@ -11,6 +11,7 @@ function sortsContactsByLetter() {
     let sortContacts = document.getElementById('sorted_contacts');
     sortContacts.innerHTML = '';
     letters = [];
+    allContacts.sort((a, b) => a.name.localeCompare(b.name));
     allContacts.forEach(contact => {
         let firstLetter = contact.name.charAt(0).toUpperCase();
         let letterAvailable = letters.indexOf(firstLetter)

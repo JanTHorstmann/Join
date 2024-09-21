@@ -100,7 +100,6 @@ async function deleteTask(id) {
 function renderEditTaskSubtask(task) {
     let subTasktContainer = document.getElementById('subtask_container');
     subTasktContainer.innerHTML = '';
-    // let task = findTask(id)
     let subTasks = task['subtasks']
     for (let i = 0; i < subTasks.length; i++) {
         const subTask = subTasks[i];
@@ -121,7 +120,8 @@ function renderEditTaskSubtask(task) {
 }
 
 function editSubtaskFromEditTask(id, i) {
-    let subtaskValue = allTasks[id]['subtasks'][i]['text'];
+    let task = findTask(id);
+    let subtaskValue = task.subtasks[i]['text'];
     let editSubtask = document.getElementById(`list_container${i}`)
     editSubtask.innerHTML = /*html*/` 
         <div class="edit-subtask">
@@ -137,13 +137,15 @@ function editSubtaskFromEditTask(id, i) {
 
 function saveSubtastFromEditTask(id, i) {
     let subTaskInput = document.getElementById(`edit_subtaskt_input${i}`);
-    allTasks[id]['subtasks'][i]['text'] = subTaskInput.value
-    renderEditTaskSubtask(id);
+    let task = findTask(id);
+    task.subtasks[i]['text'] = subTaskInput.value
+    renderEditTaskSubtask(task);
 }
 
 function deleteSubtaskFromEditTask(id, i) {
-    allTasks[id]['subtasks'].splice(i, 1);
-    renderEditTaskSubtask(id);
+    let task = findTask(id);
+    task.subtasks.splice(i, 1);
+    renderEditTaskSubtask(task);
 }
 
 

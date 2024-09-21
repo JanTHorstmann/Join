@@ -92,24 +92,20 @@ function countDoneSubtasks(task) {
     return doneSubtasks;
 }
 
-async function sortAssignedContacts(task) {
+function sortAssignedContacts(task) {
     let assignedField = document.getElementById(`assigned_contacts${task.id}`);
     let overFlowContainer = document.getElementById(`overflow_container${task.id}`);
-    // let assignedContacts = task.assigned_to;
-    let assignedContacts = await getContacts(task.assigned_to);
+    let assignedContacts = getContacts(task.assigned_to);
     assignedField.innerHTML = '';
     selectedContactsBoard(assignedField, overFlowContainer, assignedContacts)
 }
 
-async function getContacts(assigned_to) {
+function getContacts(assigned_to) {
     let assignedToContacts = [];
-
     assigned_to.forEach(contactId => {
         let contact = findContact(contactId)
         assignedToContacts.push(contact);
-    })
-    
-
+    });
     return assignedToContacts;
 }
 
@@ -173,7 +169,6 @@ function openAddTask(sectionContainer) {
 }
 
 async function closeAddTask() {
-    // inWichContainer = 'to_do';
     let openAddTask = document.getElementById('open_task');
     openAddTask.classList.add('d-none');
     openAddTask.innerHTML = '';

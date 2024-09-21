@@ -89,7 +89,7 @@ async function createContact() {
     let phone = document.getElementById('contact_phone');
     let inicials = getInitials(name.value);
     let inicialcolor = generateRandomColor();
-    let contact = contactTemplate(name.value, inicials, inicialcolor, mail.value, phone.value);
+    let contact = contactTemplate('', name.value, inicials, inicialcolor, mail.value, phone.value);
     allContacts.push(contact);
     await setItem('contacts', contact);
     await loadContacts();
