@@ -7,14 +7,14 @@
  * @param {number} phoneNumber 
  * @returns 
  */
-function contactTemplate(name, inicials, color, email, phoneNumber) {
+function contactTemplate(id, name, inicials, color, email, phoneNumber) {
     let contact = {
-        'id': '',
+        'id': id || '',
         'name': name,
         'inicials': inicials,
         'inicialcolor': color,
         'email': email,
-        'phone': +phoneNumber,
+        'phone': phoneNumber,
     }
     return contact;
 }
@@ -91,7 +91,7 @@ async function createContact() {
     let inicialcolor = generateRandomColor();
     let contact = contactTemplate(name.value, inicials, inicialcolor, mail.value, phone.value);
     allContacts.push(contact);
-    await saveContacts();
+    await setItem('contacts', contact);
     await loadContacts();
     sortsContactsByLetter();
     showAddContactBanner();

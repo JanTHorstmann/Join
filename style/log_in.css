@@ -66,6 +66,10 @@ body {
     width: 100px;
 }
 
+.wrong-input label {
+    color: #FF4057 !important;
+}
+
 @keyframes reduceLogo {
     0% {
         width: 274px;
@@ -543,7 +547,7 @@ a:hover {
         width: 90%;
         display: flex;
         flex-direction: column;
-        align-items: center;
+        /* align-items: center; */
     }
 
     .log-in-input input {

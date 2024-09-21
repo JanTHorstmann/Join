@@ -40,22 +40,53 @@ function loadLoakalUser() {
  * @returns 
  */
 async function logIn(guest) {
-    let email = document.getElementById('email_log_in');
-    let emailToLowerCase = email.value.toLowerCase();
-    let password = document.getElementById('password1_input');
-    let users = JSON.parse(await getItem('users'));
+    let email;
+    let emailToLowerCase;
+    let password;
     if (guest == 'guest@guest.com') {
-        window.location.href = 'summary.html?msg=Welcomme to Join, Guest';
+        emailToLowerCase = 'guest@guest.com',
+        password = 'qwertzuiopü'
     } else {
-        let user = users.find(u => u.email == emailToLowerCase && u.password == password.value);
-        if (user) {
-            window.location.href = `summary.html?msg=Welcomme to Join, ${user.name}`;            
-        } else {
-            wrongEnter(users, email.value, password.value);
-            return
+        email = document.getElementById('email_log_in');
+        emailToLowerCase = email.value.toLowerCase();
+        password = document.getElementById('password1_input').value;
+    }
+
+    try {
+        const url = `http://127.0.0.1:8000/login/${STORAGE_TOKEN}`;
+
+        // Die POST-Anfrage an die API senden
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                // Falls nötig, füge hier weitere Header hinzu
+            },
+            body: JSON.stringify({
+                email: emailToLowerCase,
+                password: password,
+            })
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error("Login error:", errorData);
+            document.getElementById('email').classList.add('wrong-input')
+            document.getElementById('password1').classList.add('wrong-input')
+            return;
         }
+
+        const data = await response.json();
+        console.log("Login successful:", data);
+
+        localStorage.setItem('authToken', data.token);
+        window.location.href = `summary.html?msg=Welcomme to Join, ${data.user.first_name} ${data.user.last_name}`;
+
+    } catch (error) {
+        console.error('Fehler beim Login:', error);
     }
 }
+
 
 
 //------------------------------------------------------------------------------//
@@ -114,13 +145,13 @@ function wrongEnter(users, emailValue, passwordValue) {
     let emailInput = document.getElementById('email')
     let passwordInput = document.getElementById('password1')
     let userEmailIndex = users.findIndex(u => u.email == emailValue.toLowerCase());
-    if (userEmailIndex !== -1) {       
+    if (userEmailIndex !== -1) {
         if (users[userEmailIndex].password != passwordValue) {
             document.getElementById('password1_input').value = "";
             passwordInput.classList.add('log-in-wrong');
         } else
             passwordInput.classList.remove('log-in-wrong');
-        emailInput.classList.remove('log-in-wrong'); 
+        emailInput.classList.remove('log-in-wrong');
     } else {
         emailInput.classList.add('log-in-wrong');
         document.getElementById('password1_input').value = "";

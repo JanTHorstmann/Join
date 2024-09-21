@@ -93,7 +93,7 @@ function renderOpenTask(task) {
                 <span class="fontSize-20-400">${task.description}</span>
                 <div class="flex-gap25">
                     <span class="fontSize-20-400 color-2A3647 width-100px">Due date:</span>
-                    <span class="fontSize-20-400">${task.dueDate}</span>
+                    <span class="fontSize-20-400">${task.due_date}</span>
                 </div>
                 <div class="flex-gap25">
                     <span class="fontSize-20-400 color-2A3647 width-100px">Priority:</span>
@@ -145,7 +145,7 @@ function renderSubtasksOpenTask(subtask, taskId, subtaskId, imgSrc) {
         </div>`
 }
 
-function renderEditOpenTask(i) {
+function renderEditOpenTask(task) {
     return /*html*/ `
         <div class="open-task">
             <div class="task">
@@ -157,7 +157,7 @@ function renderEditOpenTask(i) {
                 <div id="subtask_input_field" class="input-field"></div>              
             </div>  
             <div class="edit-btn">                       
-                <div class="clear-create-btn" onclick="saveEditTask(${i})">
+                <div class="clear-create-btn" onclick="saveEditTask(${task.id})">
                     <button class="create-btn fontSize-21-700">Ok <img src="../assets/img/check_icon_FFFFFF.svg" alt=""></button>
                 </div>
             </div>  

@@ -12,26 +12,35 @@ async function signUp() {
     let email = document.getElementById('email_sign_up');
     let password1 = document.getElementById('password1_input');
     let password2 = document.getElementById('password2_input');
-    let users = JSON.parse(await getItem('users'));
-    let emailChecked = users.find(u => u.email == email.value.toLowerCase());
+    let users = await getItem('users');
+    let emailChecked;
+    // if (users) {
+    //     emailChecked = users.find(u => u.email == email.value.toLowerCase());
+    // }
     let signUpSuccesfully = document.getElementById('sign_up_succesfully');
     if (!emailChecked) {
         if (password1.value == password2.value) {
-            users.push({
-                name: name.value,
+            let [firstName, lastName] = name.value.split(' ');
+            let newUser = {
+                username: name.value.replace(/\s+/g, ''),
                 email: email.value.toLowerCase(),
                 password: password1.value,
-            })
-            await setItem('users', JSON.stringify(users));
+                password_confirm: password2.value,
+                first_name: firstName,
+                last_name: lastName || ''
+            };
+            // users.push(newUser)
+            await setItem('users', newUser);
             signUpSuccesfully.classList.remove('d-none')
             signUpSuccesfully.style.animation = 'signUpSuccesfull 125ms ease-in-out forwards'
             resetForm('signup', email, password1, password2, name);
             setTimeout(function () { window.location.href = 'index.html' }, 800)
         } else if (password1.value != password2.value)
             document.getElementById('password2').classList.add('log-in-wrong');
-    } else
+    } else {
         document.getElementById('email').classList.add('log-in-wrong');
-    document.getElementById('sign_up_btn').disabled = false;
+        document.getElementById('sign_up_btn').disabled = false;
+    }
 }
 
 

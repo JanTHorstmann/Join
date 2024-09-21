@@ -1,5 +1,9 @@
-const STORAGE_TOKEN = 'PXLR74EGYE6KQF2FNA009UTFBN1CZP6D1UHJKUZW'
-const STORAGE_URL = 'https://remote-storage.developerakademie.org/item'
+const STORAGE_TOKEN = '?token=PXLR74EGYE6KQF2FNA009UTFBN1CZP6D1UHJKUZW'
+const AUTH_TOKEN = 'PXLR74EGYE6KQF2FNA009UTFBN1CZP6D1UHJKUZW'
+// const STORAGE_URL = 'https://remote-storage.developerakademie.org/item'
+const STORAGE_URL_USERS = 'http://127.0.0.1:8000/users/'
+const STORAGE_URL_TODOS = 'http://127.0.0.1:8000/todos/'
+const STORAGE_URL_CONTACTS = 'http://127.0.0.1:8000/contact/'
 
 let lokalUsers = [];
 let allContacts = [];
@@ -24,9 +28,34 @@ let sortTasks = {
  * @returns 
  */
 async function setItem(key, value) {
-    const payload = { key, value, token: STORAGE_TOKEN };
-    return fetch(STORAGE_URL, { method: 'POST', body: JSON.stringify(payload) })
-        .then(res => res.json());
+
+    let url = '';
+    if (key == 'users') {
+        url = `${STORAGE_URL_USERS}${STORAGE_TOKEN}`
+    } else if (key == 'allTasks') {
+        url = `${STORAGE_URL_TODOS}${STORAGE_TOKEN}`
+    } else if (key == 'contacts') {
+        url = `${STORAGE_URL_CONTACTS}${STORAGE_TOKEN}`
+    }
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(value),
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const result = await response.json();
+        console.log(`${key} saved:`, result);
+    } catch (error) {
+        console.error(`Error saving ${key}:`, error);
+    }
+
 }
 
 
@@ -41,27 +70,18 @@ async function setItem(key, value) {
  * @returns 
  */
 async function getItem(key) {
-    const url = `${STORAGE_URL}?key=${key}&token=${STORAGE_TOKEN}`;
-    try {
-        return data = await fetch(url).then(res => res.json().then(res => res.data.value))
-    } catch {
-        if (key == 'users') {
-            setItem('users', users = []);
-            getItem('users');
-        }
-        if (key == 'allTasks') {
-            setItem('allTasks', allTasks);
-            getItem('allTasks');
-        }
-        if (key == 'sortTasks') {
-            setItem('sortTasks', sortTasks);
-            getItem('sortTasks');
-        }
-        if (key == 'contacts') {
-            setItem('contacts', contacts = []);
-            getItem('contacts');
-        }
+    let url = '';
+    if (key == 'users') {
+        url = `${STORAGE_URL_USERS}${STORAGE_TOKEN}`
+    } else if (key == 'allTasks') {
+        url = `${STORAGE_URL_TODOS}${STORAGE_TOKEN}`
+    } else if (key == 'contacts') {
+        url = `${STORAGE_URL_CONTACTS}${STORAGE_TOKEN}`
     }
+    return fetch(url)
+        .then(res => res.json());
+
+
 }
 
 //------------------------------------------------------------------------------//
@@ -95,7 +115,8 @@ function getUserName() {
  */
 async function loadUsers() {
     try {
-        let users = JSON.parse(await getItem('users'));
+        // let users = JSON.parse(await getItem('users'));
+        let users = await getItem('users');
         return users
     } catch (e) {
         console.error('Loading error:', e);
@@ -126,7 +147,8 @@ function loadUsersFromLocalStorage() {
  */
 async function saveUserToLocalStorage() {
     let emailValue = document.getElementById('email_log_in')
-    let users = JSON.parse(await getItem('users'));
+    // let users = JSON.parse(await getItem('users'));
+    let users = await getItem('users');
     let user = users.find(u => u.email == emailValue.value.toLowerCase())
     let userNumber = lokalUsers.find(l => l.email == emailValue.value.toLowerCase())
     if (userNumber != undefined) {
@@ -160,7 +182,8 @@ function clearLocalStorage() {
  * @param {string} email 
  */
 async function deleteUser(email) {
-    let users = JSON.parse(await getItem('users'));
+    // let users = JSON.parse(await getItem('users'));
+    let users = await getItem('users');
     users = users.filter(u => u.email !== email.toLowerCase());
     await setItem('users', JSON.stringify(users));
 }
@@ -174,9 +197,48 @@ async function deleteUser(email) {
  * save Contacts at Backend
  * @async
  */
-async function saveContacts() {
-    sortContacts();
-    await setItem('contacts', JSON.stringify(allContacts));
+async function saveContacts(condition, contact) {
+    if (condition == 'edit') {
+        let url = `${STORAGE_URL_CONTACTS}${contact.id}/${STORAGE_TOKEN}`;
+
+        try {
+            const response = await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(contact),
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            const result = await response.json();
+            console.log(`Contact saved:`, result);
+        } catch (error) {
+            console.error(`Error saving Contact:`, error);
+        }
+    }
+
+    if (condition == 'delete') {
+        let url = `${STORAGE_URL_CONTACTS}${contact.id}/${STORAGE_TOKEN}`;
+
+        try {
+            const response = await fetch(url, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            console.log(`Contact deleted:`);
+        } catch (error) {
+            console.error(`Error deleting Contact:`, error);
+        }
+    }
 }
 
 
@@ -189,7 +251,8 @@ async function saveContacts() {
  * @async
  */
 async function loadContacts() {
-    allContacts = JSON.parse(await getItem('contacts'));
+    // allContacts = JSON.parse(await getItem('contacts'));
+    allContacts = await getItem('contacts');
 }
 
 
@@ -201,19 +264,56 @@ async function loadContacts() {
  * save Tasks at Backend
  * @async
  */
-async function saveTasks() {
-    await setItem('allTasks', JSON.stringify(allTasks));
-}
+async function saveTasks(task, method) {
+    if (Array.isArray(task.assigned_to) && task.assigned_to.every(item => typeof item != 'number')) {
+        let id = []
+        task.assigned_to.forEach(contact => {
+            id.push(contact.id);
+        })
+        task.assigned_to = id;
+    }
 
-// async function saveTasksCategory(tasksToDo, tasksInProgress, tasksAwaitFeedback, tasksDone) {
-//     sortTasks = {
-//         'toDo': tasksToDo,
-//         'progress': tasksInProgress,
-//         'feedback': tasksAwaitFeedback,
-//         'done': tasksDone,
-//     };
-//     await setItem('sortTasks', JSON.stringify(sortTasks));
-// }
+    let url = `${STORAGE_URL_TODOS}${task.id}/${STORAGE_TOKEN}`;
+
+    if (method == 'delete') {
+        try {
+            const response = await fetch(url, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            console.log(`Task deleted:`);
+        } catch (error) {
+            console.error(`Error deleting Task:`, error);
+        }
+    } else {
+
+        try {
+            const response = await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(task),
+            });
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            const result = await response.json();
+            console.log(`Task saved:`, result);
+        } catch (error) {
+            console.error(`Error saving Task:`, error);
+        }
+    }
+
+
+}
 
 
 //------------------------------------------------------------------------------//
@@ -225,7 +325,11 @@ async function saveTasks() {
  * @async
  */
 async function loadTasks() {
-    allTasks = JSON.parse(await getItem('allTasks'));
+    // allTasks = JSON.parse(await getItem('allTasks'));
+    allTasks = await getItem('allTasks');
+    // for (let i = 0; i < allTasks.length; i++) {
+    //     allTasks[i].id = i;
+    // }
     // sortTasks = JSON.parse(await getItem('sortTasks'));
 }
 

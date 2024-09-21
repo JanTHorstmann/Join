@@ -118,10 +118,10 @@ function renderPrioBtnInput() {
             <label class="fontSize-20-400 required">*</label>
         </div>
         <div class="prio-btn-field">
-            <div id="prio_btn_urgent" class="prio-btn hover-effect fontSize-20-400"
-                onclick="selctPrio('urgent')">
-                <span>Urgent</span>
-                <img id="urgent_btn" src="../assets/img/urgent_icon.svg">
+            <div id="prio_btn_urgend" class="prio-btn hover-effect fontSize-20-400"
+                onclick="selctPrio('urgend')">
+                <span>urgend</span>
+                <img id="urgend_btn" src="../assets/img/urgend_icon.svg">
             </div>
             <div id="prio_btn_medium" class="prio-btn hover-effect fontSize-20-400"
                 onclick="selctPrio('medium')">

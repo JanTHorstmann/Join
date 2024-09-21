@@ -54,12 +54,12 @@ function openDropDown() {
  */
 function selctPrio(prio) {
     selectedPrio = prio;
-    let urgendBtn = document.getElementById(`prio_btn_urgent`);
+    let urgendBtn = document.getElementById(`prio_btn_urgend`);
     let mediumBtn = document.getElementById(`prio_btn_medium`);
     let lowBtn = document.getElementById(`prio_btn_low`);
     resetPrioBtn(urgendBtn, mediumBtn, lowBtn);
-    if (prio == 'urgent') {
-        selctUrgentBtn(urgendBtn, mediumBtn, lowBtn);
+    if (prio == 'urgend') {
+        selcturgendBtn(urgendBtn, mediumBtn, lowBtn);
     }
     if (prio == 'medium') {
         selctMediumBtn(urgendBtn, mediumBtn, lowBtn);
@@ -76,25 +76,25 @@ function selctPrio(prio) {
  * @param {Element} lowBtn 
  */
 function resetPrioBtn(urgendBtn, mediumBtn, lowBtn) {
-    urgendBtn.classList.remove('hover-effect', 'prio-btn-selected-font', 'urgent-btn-selected-bg');
+    urgendBtn.classList.remove('hover-effect', 'prio-btn-selected-font', 'urgend-btn-selected-bg');
     mediumBtn.classList.remove('hover-effect', 'prio-btn-selected-font', 'medium-btn-selected-bg');
     lowBtn.classList.remove('hover-effect', 'prio-btn-selected-font', 'low-btn-selected-bg');
-    document.getElementById(`urgent_btn`).src = `../assets/img/urgent_icon.svg`
+    document.getElementById(`urgend_btn`).src = `../assets/img/urgend_icon.svg`
     document.getElementById(`medium_btn`).src = `../assets/img/medium_icon.svg`
     document.getElementById(`low_btn`).src = `../assets/img/low_icon.svg`
 }
 
 /**
- * select urgent btn
+ * select urgend btn
  * @param {Element} urgendBtn 
  * @param {Element} mediumBtn 
  * @param {Element} lowBtn 
  */
-function selctUrgentBtn(urgendBtn, mediumBtn, lowBtn) {
-    urgendBtn.classList.add('urgent-btn-selected-bg', 'prio-btn-selected-font');
+function selcturgendBtn(urgendBtn, mediumBtn, lowBtn) {
+    urgendBtn.classList.add('urgend-btn-selected-bg', 'prio-btn-selected-font');
     mediumBtn.classList.add('hover-effect', 'fontSize-20-400');
     lowBtn.classList.add('hover-effect', 'fontSize-20-400');
-    document.getElementById(`urgent_btn`).src = `../assets/img/urgent_selected.svg`
+    document.getElementById(`urgend_btn`).src = `../assets/img/urgend_selected.svg`
 }
 
 /**
@@ -251,7 +251,8 @@ function checkBtnAssignTo(i) {
         removeChoosenContacts(i)
     } else {
         assignToCheckBtn.src = '../assets/img/checkedbutton.svg';
-        choosenContacts.push(allContacts[i]);
+        let choosedContact = findContact(i)
+        choosenContacts.push(choosedContact);
         selectedContact.classList.add('contact-selected');
         selectedContacts(choosenContacts);
     }
@@ -264,9 +265,10 @@ function checkBtnAssignTo(i) {
 function removeChoosenContacts(i) {
     let assignToCheckBtn = document.getElementById(`contact_check_btn${i}`);
     let selectedContact = document.getElementById(`selectable_contact${i}`);
-    let index = choosenContacts.indexOf(allContacts[i]);
+    let index = choosenContacts.findIndex(contact => contact.id === i);
     assignToCheckBtn.src = '../assets/img/checkbutton.svg';
     selectedContact.classList.remove('contact-selected');
+    
     choosenContacts.splice(index, 1);
     selectedContacts(choosenContacts);
 }

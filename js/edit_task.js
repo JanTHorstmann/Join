@@ -1,11 +1,12 @@
 function editOpenTask(id) {
+    let task = findTask(id)
     let openTaskField = document.getElementById('open_task');
     openTaskField.innerHTML = /*html*/` 
         <div class="task-bg" onclick="closeTask()"></div>
         <div class="close-edit-img">
             <img id="close_add_task_img" class="" src="../assets/img/cross_icon.svg" onclick="closeAddTask()">
         </div>`;
-    openTaskField.innerHTML += renderEditOpenTask(id);
+    openTaskField.innerHTML += renderEditOpenTask(task);
     renderTitleInput();
     renderDescriptionInput();
     renderAssignedToInput();
@@ -14,29 +15,30 @@ function editOpenTask(id) {
     changeOnClickEventFromPrioBtn(id);
     renderSubTaskInput();
     changeOnClickEventFromSubtask(id);
-    renderEditTaskSubtask(id);
+    renderEditTaskSubtask(task);
     renderAssignedToAtEditTask(id);
-    isContactSelected(id)
-    editGetValue(id);
+    isContactSelected(task)
+    editGetValue(task);
 }
 
 function changeOnClickEventFromPrioBtn(i) {
-    let urgentBtn = document.getElementById('prio_btn_urgent');
+    let urgendBtn = document.getElementById('prio_btn_urgend');
     let mediumBtn = document.getElementById('prio_btn_medium');
     let lowBtn = document.getElementById('prio_btn_low');
-    urgentBtn.setAttribute("onClick", `changePrio('urgent', ${i});`);
+    urgendBtn.setAttribute("onClick", `changePrio('urgend', ${i});`);
     mediumBtn.setAttribute("onClick", `changePrio('medium', ${i});`);
     lowBtn.setAttribute("onClick", `changePrio('low', ${i});`);
 }
 
 function changePrio(prio, id) {
-    allTasks[id]['priority'] = prio;
-    let urgendBtn = document.getElementById(`prio_btn_urgent`);
+    let task = findTask(id)
+    task.priority = prio;
+    let urgendBtn = document.getElementById(`prio_btn_urgend`);
     let mediumBtn = document.getElementById(`prio_btn_medium`);
     let lowBtn = document.getElementById(`prio_btn_low`);
     resetPrioBtn(urgendBtn, mediumBtn, lowBtn);
-    if (prio == 'urgent') {
-        selctUrgentBtn(urgendBtn, mediumBtn, lowBtn);
+    if (prio == 'urgend') {
+        selcturgendBtn(urgendBtn, mediumBtn, lowBtn);
     }
     if (prio == 'medium') {
         selctMediumBtn(urgendBtn, mediumBtn, lowBtn);
@@ -54,50 +56,52 @@ function changeOnClickEventFromSubtask(i) {
 function addSubTaskEditTask(id) {
     showConfirmationIcons('add_clear', 'edit')
     let subTaskt = document.getElementById('subtask_input');
-    allTasks[id]['subtasks'].push({
+    let task = findTask(id)
+    task.subtasks.push({
         'text': subTaskt.value,
         'done': false,
-    });
+    })
     subTaskt.value = '';
-    renderEditTaskSubtask(id);
+    renderEditTaskSubtask(task);
 }
 
-function editGetValue(i) {
-    let task = allTasks[i];
+function editGetValue(task) {
+    // let task = allTasks[i];
     let titleInput = document.getElementById('title_input');
     let descriptionInput = document.getElementById('description_input');
     let dueDateInput = document.getElementById('due_date_input');
     titleInput.value = task.title
     descriptionInput.value = task.description
-    dueDateInput.value = task.dueDate
+    dueDateInput.value = task.due_date
     selctPrio(task.priority);
-    selectedContactsAtEditTask(i);
+    selectedContactsAtEditTask(task.id);
 }
 
 async function saveEditTask(id) {
-    let task = allTasks[id];
+    let task = findTask(id);
     let titleInput = document.getElementById('title_input');
     let descriptionInput = document.getElementById('description_input');
     let dueDateInput = document.getElementById('due_date_input');
     task.title = titleInput.value;
     task.description = descriptionInput.value;
-    task.dueDate = dueDateInput.value;
-    await saveTasks();
+    task.due_date = dueDateInput.value;
+    await saveTasks(task);
     openTask(id);
 }
 
 async function deleteTask(id) {
-    allTasks.splice(id, 1);
-    await saveTasks();
+    let task = findTask(id);
+    await saveTasks(task , 'delete');
     getTaskID();
     closeTask();
     sortTasksToSections();
 }
 
-function renderEditTaskSubtask(id) {
+function renderEditTaskSubtask(task) {
     let subTasktContainer = document.getElementById('subtask_container');
     subTasktContainer.innerHTML = '';
-    let subTasks = allTasks[id]['subtasks']
+    // let task = findTask(id)
+    let subTasks = task['subtasks']
     for (let i = 0; i < subTasks.length; i++) {
         const subTask = subTasks[i];
         subTasktContainer.innerHTML += /*html*/`
@@ -107,8 +111,8 @@ function renderEditTaskSubtask(id) {
                 <div class="subtask-list-element">
                     <span>${subTask.text}</span>
                     <div id="edit_icons${i}" class="img-container d-none">
-                        <img src="../assets/img/edit_subtask.svg" onclick="editSubtaskFromEditTask(${id}, ${i})"> |
-                        <img src="../assets/img/delete_subtask.svg" onclick="deleteSubtaskFromEditTask(${id}, ${i})">
+                        <img src="../assets/img/edit_subtask.svg" onclick="editSubtaskFromEditTask(${task.id}, ${i})"> |
+                        <img src="../assets/img/delete_subtask.svg" onclick="deleteSubtaskFromEditTask(${task.id}, ${i})">
                     </div>
                 </div>
             </div>
@@ -166,7 +170,7 @@ function renderAssignedToAtEditTask(taskID) {
 function checkBtnAssignToEditTask(taskID, contactID) {
     let assignToCheckBtn = document.getElementById(`contact_check_btn${contactID}`);
     let selectedContact = document.getElementById(`selectable_contact${contactID}`);
-    let assignedContacts = allTasks[taskID]['assigned'];
+    let assignedContacts = allTasks[taskID]['assigned_to'];
     if (assignToCheckBtn.src.includes('checkedbutton')) {
         assignToCheckBtn.src = '../assets/img/checkbutton.svg';
         removeAssignedContacts(taskID, contactID)
@@ -178,8 +182,8 @@ function checkBtnAssignToEditTask(taskID, contactID) {
     }
 }
 
-function isContactSelected(id) {
-    let assignedContacts = allTasks[id]['assigned'];
+function isContactSelected(task) {
+    let assignedContacts = task['assigned_to'];
     for (let i = 0; i < assignedContacts.length; i++) {
         const assignedContact = assignedContacts[i];
         document.getElementById(`contact_check_btn${assignedContact.id}`).src = '../assets/img/checkedbutton.svg';
@@ -199,16 +203,18 @@ function selectedContactsAtEditTask(taskID) {
 function removeAssignedContacts(taskID, contactID) {
     let assignToCheckBtn = document.getElementById(`contact_check_btn${contactID}`);
     let selectedContact = document.getElementById(`selectable_contact${contactID}`);
-    let assignedTaskContacts = allTasks[taskID]['assigned'];
+    let task = findTask(taskID);
+    // let index = task.assigned_to.findIndex(contact => contact.id === contactID)
     assignToCheckBtn.src = '../assets/img/checkbutton.svg';
     selectedContact.classList.remove('contact-selected');
-    assignedTaskContacts.splice(contactID, 1);
+    task.assigned_to.splice(contactID, 1);
     selectedContactsAtEditTask(taskID);
 }
 
 function renderSelectedContactsAtEditTask(selectedContactContainer, overFlowContainer, containerWidth, taskID) {
     let hiddenContacts = 0;
-    let assignedTaskContacts = allTasks[taskID]['assigned'];
+    let task = findTask(taskID)
+    let assignedTaskContacts = task['assigned_to'];
     for (let i = 0; i < assignedTaskContacts.length; i++) {
         let totalWidthContacts = calculateContainerWidth();
         if ((containerWidth - 46) > totalWidthContacts) {

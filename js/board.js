@@ -65,8 +65,8 @@ function clearTaskField(to_do, progress, feedback, done, _responsive) {
 
 function sortAllTasks(task) {
     let taskSection = document.getElementById(`${task.inWichSection}_tasks`);
-    let doneSubtasks = countDoneSubtasks(task); 
-    let progressBar = fillProgressBar(task, doneSubtasks);   
+    let doneSubtasks = countDoneSubtasks(task);
+    let progressBar = fillProgressBar(task, doneSubtasks);
     taskSection.innerHTML += renderBoardTask(task.id, task.category, task.title, task.description, task.subtasks, task.priority, doneSubtasks, progressBar);
     if (task.subtasks.length <= 0) {
         document.getElementById(`subtasks${task.id}`).innerHTML = '';
@@ -87,17 +87,30 @@ function countDoneSubtasks(task) {
         const subtask = subtasks[i];
         if (subtask.done) {
             doneSubtasks++
-        }        
+        }
     }
     return doneSubtasks;
 }
 
-function sortAssignedContacts(task) {
+async function sortAssignedContacts(task) {
     let assignedField = document.getElementById(`assigned_contacts${task.id}`);
     let overFlowContainer = document.getElementById(`overflow_container${task.id}`);
-    let assignedContacts = task.assigned;
+    // let assignedContacts = task.assigned_to;
+    let assignedContacts = await getContacts(task.assigned_to);
     assignedField.innerHTML = '';
     selectedContactsBoard(assignedField, overFlowContainer, assignedContacts)
+}
+
+async function getContacts(assigned_to) {
+    let assignedToContacts = [];
+
+    assigned_to.forEach(contactId => {
+        let contact = findContact(contactId)
+        assignedToContacts.push(contact);
+    })
+    
+
+    return assignedToContacts;
 }
 
 function selectedContactsBoard(assignedField, overFlowContainer, assignedContacts) {
@@ -137,15 +150,15 @@ function renderSelectedContactsBoard(assignedField, overFlowContainer, container
 
 async function checkSubtask(taskId, subtaskId) {
     let imgSrc = document.getElementById(`subtask${subtaskId}`);
-    let taskDone = allTasks[taskId]['subtasks'][subtaskId]['done'];
-    if (taskDone) {
-        allTasks[taskId]['subtasks'][subtaskId]['done'] = !allTasks[taskId]['subtasks'][subtaskId]['done'];
+    let task = findTask(taskId)
+    if (task.subtasks[subtaskId].done) {
+        task.subtasks[subtaskId].done = !task.subtasks[subtaskId].done;
         imgSrc.src = '../assets/img/checkbutton.svg';
     } else {
-        allTasks[taskId]['subtasks'][subtaskId]['done'] = !allTasks[taskId]['subtasks'][subtaskId]['done'];
+        task.subtasks[subtaskId].done = !task.subtasks[subtaskId].done;
         imgSrc.src = '../assets/img/checkbuttonchecked.svg';
     }
-    await saveTasks();
+    await saveTasks(task);
 }
 
 function openAddTask(sectionContainer) {

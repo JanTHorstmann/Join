@@ -45,16 +45,16 @@ function renderContact(firstLetter, contact) {
 }
 
 async function deleteContact(id) {
+    contact = findContact(id)
     allTasks.forEach(task => {
-        deleteContactFromTask(id, task);        
+        deleteContactFromTask(contact, task);
     })
-    allContacts.splice(id, 1);
+    // allContacts.splice(id, 1);
     let openContact = document.getElementById('open_contact');
     let openContactResponsive = document.getElementById('show_contact_responsive');
     openContact.innerHTML = '';
     openContactResponsive.innerHTML = '';
-    await saveContacts();
-    await saveTasks();
+    await saveContacts('delete', contact);
     await loadContacts();
     await loadTasks();
     // sortContacts();
@@ -63,19 +63,20 @@ async function deleteContact(id) {
     closeOpenContact();
 }
 
-function deleteContactFromTask(id, task) {
-    let deleteContactIndex = task.assigned.findIndex(assignedContact => assignedContact.name === allContacts[id].name);
+async function deleteContactFromTask(id, task) {
+    let deleteContactIndex = task.assigned_to.findIndex(assignedContactNumber => assignedContactNumber === contact.id);
     if (deleteContactIndex !== -1) {
-        task.assigned.splice(deleteContactIndex, 1);
+        task.assigned_to.splice(deleteContactIndex, 1);
     }
+    await saveTasks(task);
 }
 
 function taskContactsGetNewID() {
     allContacts.forEach(contact => {
         allTasks.forEach(task => {
-            let contactID = task.assigned.findIndex(assignedContact => assignedContact.name === contact.name) 
+            let contactID = task.assigned_to.findIndex(assignedContact => assignedContact.name === contact.name)
             if (contactID !== -1) {
-                task.assigned[contactID]['id'] = contact.id
+                task.assigned_to[contactID]['id'] = contact.id
             }
         })
     });

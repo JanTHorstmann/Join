@@ -69,8 +69,8 @@ function hoverOverUrgendTask(id) {
  * @param {string} id 
  */
 function hoverOverTaskCounts(id) {
-    document.getElementById(`${id}`).classList.remove('urgent-task-overview');
-    document.getElementById(`${id}`).classList.add('urgent-task-overview-hover');
+    document.getElementById(`${id}`).classList.remove('urgend-task-overview');
+    document.getElementById(`${id}`).classList.add('urgend-task-overview-hover');
 }
 
 //------------------------------------------------------------------------------//
@@ -137,8 +137,8 @@ function hoverLeaveUrgendTask(id) {
  * @param {string} id 
  */
 function hoverLeaveTaskCounts(id) {
-    document.getElementById(`${id}`).classList.remove('urgent-task-overview-hover');
-    document.getElementById(`${id}`).classList.add('urgent-task-overview');
+    document.getElementById(`${id}`).classList.remove('urgend-task-overview-hover');
+    document.getElementById(`${id}`).classList.add('urgend-task-overview');
 }
 
 
@@ -221,11 +221,12 @@ function openTaskBoard() {
  */
 async function fillSummary() {
     let userName = getUserName();
-    let users = JSON.parse(await getItem('users'));
+    // let users = JSON.parse(await getItem('users'));
+    let users = await getItem('users');
     let user = users.find(u => u.name == userName);
     countTasks('to_do_count', 'to_do');
     countTasks('done_count', 'done');
-    countPriority('priority', 'urgent', 'urgend_count');
+    countPriority('priority', 'urgend', 'urgend_count');
     countTasks('task_progress_count', 'progress');
     countTasks('task_feedback_count', 'feedback');
     countBoardTasks('task_board_count');
@@ -249,7 +250,7 @@ function countPriority(taskcategory, status, containerID) {
         const task = allTasks[i];
         if (task[taskcategory] == status) {
             taskCount++;
-            if (status == 'urgent')
+            if (status == 'urgend')
                 findDueDate();
         }
     }
@@ -310,8 +311,8 @@ function findDueDate() {
     let closestDate = Infinity;
     // let tasks = user['tasks']
     for (let i = 0; i < allTasks.length; i++) {
-        if (allTasks[i]['priority'] == 'urgent') {            
-            let task = new Date(allTasks[i]['dueDate']);
+        if (allTasks[i]['priority'] == 'urgend') {            
+            let task = new Date(allTasks[i]['due_date']);
             if (task < closestDate || closestDate === null)
                 closestDate = task;
         }

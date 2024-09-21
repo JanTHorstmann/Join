@@ -1,16 +1,22 @@
+function findContact(id) {
+    return allContacts.find(c => c.id === id);
+}
+
 function openContact(id) {
     let openContact = document.getElementById('open_contact');
     let openContactResponsive = document.getElementById('open_contact_responsive');
     hoverActiveContact(id);
     let windowSize = window.innerWidth;
-    let contact = allContacts[id];
-    let phoneNumber = splitPhoneNumber(contact.phone);
-    if (windowSize > 730) {
-        openContact.innerHTML = renderOpenContact(contact, phoneNumber);
-    } else {
-        closeOpenContact('open');
-        openContact.innerHTML = renderOpenContact(contact, phoneNumber);
-        openContactResponsive.innerHTML = renderOpenContact(contact, phoneNumber);
+    let contact = findContact(id);
+    if (contact) {        
+        let phoneNumber = splitPhoneNumber(contact.phone);
+        if (windowSize > 730) {
+            openContact.innerHTML = renderOpenContact(contact, phoneNumber);
+        } else {
+            closeOpenContact('open');
+            openContact.innerHTML = renderOpenContact(contact, phoneNumber);
+            openContactResponsive.innerHTML = renderOpenContact(contact, phoneNumber);
+        }
     }
 }
 

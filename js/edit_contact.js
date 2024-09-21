@@ -1,7 +1,7 @@
 function editContact(id) {
     let contactField = document.getElementById('add_contact');
     let addContactInputs = document.getElementById('add_contact_inputs');
-    let contact = allContacts[id];
+    let contact = findContact(id);
     contactField.classList.remove('d-none');
     addContactInputs.innerHTML = renderEditContact(contact);
     setTimeout(() => {
@@ -34,7 +34,7 @@ function renderEditContact(contact) {
                     </div>
                 </div>
                     <div class="clear-create-btn">
-                        <button class="clear-btn fontSize-20-400" onclick="deleteContact()">Delete</button>
+                        <button class="clear-btn fontSize-20-400" onclick="deleteContact(${contact.id})">Delete</button>
                         <button type="submit" class="create-btn fontSize-21-700">Save <img src="../assets/img/check_icon_FFFFFF.svg" alt=""></button>
                     </div>
             </form>
@@ -46,11 +46,12 @@ async function saveEditContact(id) {
     let mail = document.getElementById('contact_email');
     let phone = document.getElementById('contact_phone');
     let inicials = getInitials(name.value);
-    let contact = contactTemplate(name.value, inicials, allContacts[id].inicialcolor, mail.value, phone.value);
-    allContacts[id]= contact;
-    await saveContacts();
+    let currentContact = findContact(id);
+    let newContact = contactTemplate(currentContact.id, name.value, inicials, allContacts[id].inicialcolor, mail.value, phone.value);
+    currentContact= newContact;
+    await saveContacts('edit', newContact);
     closeAddContact();
-    await loadContacts();
+    // await loadContacts();
     sortsContactsByLetter();
     openContact(id);
 }

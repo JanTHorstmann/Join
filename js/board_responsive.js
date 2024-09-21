@@ -25,10 +25,10 @@ function sortAllTasksResponsive(task) {
     sortAssignedContactsResponsive(task);
 }
 
-function sortAssignedContactsResponsive(task) {
+async function sortAssignedContactsResponsive(task) {
     let assignedField = document.getElementById(`assigned_contacts_responsive${task.id}`);
     let overFlowContainer = document.getElementById(`overflow_container_responsive${task.id}`);
-    let assignedContacts = task.assigned;
+    let assignedContacts = await getContacts(task.assigned_to);
     assignedField.innerHTML = '';
     selectedContactsBoardResponsive(assignedField, overFlowContainer, assignedContacts)
 }

@@ -1,17 +1,25 @@
 let inWichContainer;
-function taskTemplate(title, description, dueDate, category) {
+async function taskTemplate(title, description, dueDate, category) {
     let task = {
         'id': '',
         'title': title,
         'description': description,
-        'assigned': choosenContacts,
-        'dueDate': dueDate,
+        'assigned_to': choosenContacts,
+        'due_date': dueDate,
         'priority': selectedPrio,
         'category': category,
         'subtasks': subTasks,
         'inWichSection': inWichContainer || 'to_do',
     }
     allTasks.push(task);
+    if (Array.isArray(task.assigned_to) && task.assigned_to.every(item => typeof item != 'number')) {
+        let id = []
+        task.assigned_to.forEach(contact => {
+            id.push(contact.id);
+        })
+        task.assigned_to = id;
+    }
+    await setItem('allTasks', task)
     getTaskID();
 }
 
@@ -33,10 +41,9 @@ async function createTask(event, isOnBoard) {
     let dueDate = document.getElementById('due_date_input');
     let category = document.getElementById('category_input');
     if (selectedPrio) {
-        taskTemplate(title.value, description.value, dueDate.value, category.value);
+        await taskTemplate(title.value, description.value, dueDate.value, category.value);
         clearAddTaskInputs(event);
         taskSuccessfullyCreated();
-        await saveTasks();
         await loadTasks();
     } else {
         let prioBtnRequired = document.getElementById('prio_btn_required');
